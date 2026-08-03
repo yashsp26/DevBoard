@@ -1,0 +1,27 @@
+import { type ReactNode } from 'react'
+import { cn } from '../../utils/cn'
+
+type BadgeVariant = 'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'
+
+type BadgeProps = {
+  children: ReactNode
+  className?: string
+  variant?: BadgeVariant
+}
+
+const variantClasses: Record<BadgeVariant, string> = {
+  default: 'border border-border-subtle bg-elevated text-secondary',
+  primary: 'border border-primary/30 bg-primary/15 text-primary',
+  success: 'border border-success/30 bg-success/15 text-success',
+  danger: 'border border-danger/30 bg-danger/15 text-danger',
+  warning: 'border border-warning/30 bg-warning/15 text-warning',
+  info: 'border border-info/30 bg-info/15 text-info',
+}
+
+export function Badge({ children, className, variant = 'default' }: BadgeProps) {
+  return (
+    <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
+      {children}
+    </span>
+  )
+}
