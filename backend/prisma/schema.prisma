@@ -133,6 +133,14 @@ model Project {
   notes         Note[]
 
   snippets      Snippet[]
+
+  @@unique([ownerId, name])
+
+  @@index([ownerId])
+
+  @@index([status])
+  
+  @@index([ownerId, status])
 }
 
 model Task {

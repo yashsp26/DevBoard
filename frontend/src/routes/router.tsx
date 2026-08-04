@@ -4,6 +4,8 @@ import { ResetPasswordPage } from '../pages/ResetPasswordPage'
 import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
+import { ProjectsPage } from '../pages/ProjectsPage'
+import { ProjectDetailsPage } from '../pages/ProjectDetailsPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { ForbiddenPage, NetworkErrorPage, NotFoundPage } from '../pages/StatusPages'
 import { DashboardLayout } from '../layouts/DashboardLayout'
@@ -35,6 +37,8 @@ export const router = createBrowserRouter([
             children: [
               { path: '/dashboard', element: <DashboardPage /> },
               { path: '/profile', element: <ProfilePage /> },
+              { path: '/projects', element: <ProjectsPage /> },
+              { path: '/projects/:id', element: <ProjectDetailsPage /> },
             ],
           },
         ],

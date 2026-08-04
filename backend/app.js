@@ -11,6 +11,8 @@ import routes from "./src/routes/index.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
 import avatarRoutes from "./src/routes/avatar.routes.js";
+import projectRoutes from "./src/routes/project.routes.js";
+import labelRoutes from "./src/routes/label.routes.js";
 
 import notFoundMiddleware from "./src/middleware/notFound.middleware.js";
 import errorMiddleware from "./src/middleware/error.middleware.js";
@@ -23,7 +25,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -38,18 +40,16 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(
-  "/api/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec)
-);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/avatar", avatarRoutes);
+app.use("/api/v1/projects", projectRoutes);
+app.use("/api/v1/labels", labelRoutes);
 
 app.use("/api", routes);
-
+  
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
