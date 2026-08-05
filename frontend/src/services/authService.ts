@@ -29,6 +29,11 @@ export const authService = {
     await apiClient.post('/v1/auth/logout')
   },
 
+  async refresh() {
+    const { data } = await apiClient.post<ApiResponse<{ accessToken: string }>>('/v1/auth/refresh')
+    return data.data.accessToken
+  },
+
   async me() {
     const { data } = await apiClient.get<MeResponse>('/v1/auth/me')
     return data.data

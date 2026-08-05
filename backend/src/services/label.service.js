@@ -36,11 +36,7 @@ const getLabel = async (userId, labelId) => {
   return label;
 };
 
-export const createLabel = async (
-  userId,
-  projectId,
-  data
-) => {
+export const createLabel = async (userId, projectId, data) => {
   await getProject(userId, projectId);
 
   try {
@@ -55,25 +51,26 @@ export const createLabel = async (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
-      throw new ApiError(
-        409,
-        "A label with this name already exists."
-      );
+      throw new ApiError(409, "A label with this name already exists.");
     }
 
     throw error;
   }
 };
 
-export const getLabels = async (
-  userId,
-  projectId
-) => {
+export const getLabels = async (userId, projectId) => {
   await getProject(userId, projectId);
 
   return await prisma.label.findMany({
     where: {
       projectId,
+    },
+    include: {
+      _count: {
+        select: {
+          tasks: true,
+        },
+      },
     },
     orderBy: {
       name: "asc",
@@ -81,11 +78,7 @@ export const getLabels = async (
   });
 };
 
-export const updateLabel = async (
-  userId,
-  labelId,
-  data
-) => {
+export const updateLabel = async (userId, labelId, data) => {
   await getLabel(userId, labelId);
 
   try {
@@ -100,20 +93,14 @@ export const updateLabel = async (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
-      throw new ApiError(
-        409,
-        "A label with this name already exists."
-      );
+      throw new ApiError(409, "A label with this name already exists.");
     }
 
     throw error;
   }
 };
 
-export const deleteLabel = async (
-  userId,
-  labelId
-) => {
+export const deleteLabel = async (userId, labelId) => {
   await getLabel(userId, labelId);
 
   await prisma.label.delete({

@@ -7,6 +7,11 @@ type ProtectedRouteProps = {
 
 export function ProtectedRoute({ access = 'protected' }: ProtectedRouteProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const isLoading = useAuthStore((state) => state.isLoading)
+
+  if (isLoading) {
+    return <main className="grid min-h-screen place-items-center bg-background" />
+  }
 
   if (access === 'protected' && !isAuthenticated) {
     return <Navigate replace to="/login" />

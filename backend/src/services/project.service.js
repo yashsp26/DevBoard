@@ -112,8 +112,17 @@ export const getProjectById = async (userId, projectId) => {
     where: {
       id: projectId,
       ownerId: userId,
+    },include: {
+    _count: {
+      select: {
+        tasks: true,
+        labels: true,
+        notes: true,
+        snippets: true,
+      },
     },
-  });
+  },
+});
 
   if (!project) {
     throw new ApiError(404, "Project not found.");
