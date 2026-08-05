@@ -4,6 +4,7 @@ import { cn } from '../../utils/cn'
 type BadgeVariant = 'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'
 
 type BadgeProps = {
+  'aria-label'?: string
   children: ReactNode
   className?: string
   variant?: BadgeVariant
@@ -18,9 +19,9 @@ const variantClasses: Record<BadgeVariant, string> = {
   info: 'border border-info/30 bg-info/15 text-info',
 }
 
-export function Badge({ children, className, variant = 'default' }: BadgeProps) {
+export function Badge({ 'aria-label': ariaLabel, children, className, variant = 'default' }: BadgeProps) {
   return (
-    <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
+    <span aria-label={ariaLabel} className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
       {children}
     </span>
   )

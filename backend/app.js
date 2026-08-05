@@ -13,6 +13,7 @@ import userRoutes from "./src/routes/user.routes.js";
 import avatarRoutes from "./src/routes/avatar.routes.js";
 import projectRoutes from "./src/routes/project.routes.js";
 import labelRoutes from "./src/routes/label.routes.js";
+import taskRoutes from "./src/routes/task.routes.js";
 
 import notFoundMiddleware from "./src/middleware/notFound.middleware.js";
 import errorMiddleware from "./src/middleware/error.middleware.js";
@@ -46,10 +47,11 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/avatar", avatarRoutes);
 app.use("/api/v1/projects", projectRoutes);
-app.use("/api/v1/labels", labelRoutes);
+app.use("/api/v1/", labelRoutes);
+app.use("/api/v1/", taskRoutes);
 
 app.use("/api", routes);
-  
+
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 

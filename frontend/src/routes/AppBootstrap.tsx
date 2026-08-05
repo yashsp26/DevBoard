@@ -6,12 +6,12 @@ type AppBootstrapProps = {
 }
 
 export function AppBootstrap({ children }: AppBootstrapProps) {
-  const initializeAuth = useAuthStore((state) => state.initializeAuth)
+  const initialize = useAuthStore((state) => state.initialize)
   const isLoading = useAuthStore((state) => state.isLoading)
 
   useEffect(() => {
-    void initializeAuth()
-  }, [initializeAuth])
+    void initialize()
+  }, [initialize])
 
   if (isLoading) {
     return <main className="grid min-h-screen place-items-center bg-background" />

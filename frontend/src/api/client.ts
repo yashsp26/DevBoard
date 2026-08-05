@@ -105,7 +105,8 @@ apiClient.interceptors.response.use(
     isRefreshing = true
 
     try {
-      await apiClient.post('/v1/auth/refresh')
+      const { data } = await apiClient.post<{ data: { accessToken: string } }>('/v1/auth/refresh')
+      useAuthStore.getState().setAccessToken(data.data.accessToken)
       flushPendingRequests()
       return apiClient(originalRequest)
     } catch (refreshError) {
