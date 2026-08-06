@@ -1,4 +1,4 @@
-import { FolderKanban, LayoutDashboard, UserRound } from 'lucide-react'
+import { FileText, FolderKanban, LayoutDashboard, UserRound } from 'lucide-react'
 import { Outlet, useLocation } from 'react-router'
 import { Navbar } from '../components/layout/Navbar'
 import { Sidebar } from '../components/layout/Sidebar'
@@ -8,6 +8,7 @@ import { ThemeToggle } from '../components/layout/ThemeToggle'
 const navigationItems = [
   { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
   { icon: FolderKanban, label: 'Projects', to: '/projects' },
+  { icon: FileText, label: 'Notes', to: '/notes' },
   { icon: UserRound, label: 'Profile', to: '/profile' },
 ]
 
@@ -15,6 +16,7 @@ const routeTitles: Record<string, string> = {
   '/dashboard': 'Dashboard',
   '/profile': 'Profile',
   '/projects': 'Projects',
+  '/notes': 'Notes',
 }
 
 export function DashboardLayout() {

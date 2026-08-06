@@ -1,0 +1,7 @@
+import { Edit3, FileText, Trash2 } from 'lucide-react'
+import type { Note } from '../../types/note'
+import { Badge } from '../ui/Badge'
+import { Button } from '../ui/Button'
+import { Card } from '../ui/Card'
+
+export function NoteCard({ note, onEdit, onDelete }: { note: Note; onEdit: (note: Note) => void; onDelete: (note: Note) => void }) { const updated = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(note.updatedAt)); return <Card className="flex min-h-56 flex-col p-5 transition-shadow hover:shadow-md"><div className="flex items-start justify-between gap-3"><FileText aria-hidden="true" className="size-5 shrink-0 text-primary" /><Badge aria-label={note.project ? `Project: ${note.project.name}` : 'Personal Note'} variant={note.project ? 'primary' : 'default'}>{note.project?.name ?? 'Personal Note'}</Badge></div><h2 className="mt-4 truncate text-lg font-semibold text-text">{note.title}</h2><p className="mt-2 line-clamp-4 text-sm leading-6 text-muted">{note.content}</p><div className="mt-auto flex items-center justify-between gap-3 border-t border-border pt-4"><span className="text-xs text-muted">Updated {updated}</span><div className="flex gap-1"><Button aria-label={`Edit ${note.title}`} className="size-9 min-h-0 p-0" onClick={() => onEdit(note)} variant="ghost"><Edit3 aria-hidden="true" className="size-4" /></Button><Button aria-label={`Delete ${note.title}`} className="size-9 min-h-0 p-0" onClick={() => onDelete(note)} variant="ghost"><Trash2 aria-hidden="true" className="size-4" /></Button></div></div></Card> }

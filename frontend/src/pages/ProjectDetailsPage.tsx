@@ -17,7 +17,7 @@ import { ProjectStats } from "../features/projects/ProjectStats";
 import { LabelsSection } from "../features/labels/LabelsSection";
 import { useProject } from "../services/useProjects";
 
-const modules = ["Notes", "Snippets"];
+const modules = ["Snippets"];
 
 export function ProjectDetailsPage() {
   const { id } = useParams();
