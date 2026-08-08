@@ -70,6 +70,17 @@ export function ProjectsPage() {
     if (debouncedSearch !== search) updateParams({ search: debouncedSearch || undefined })
   }, [debouncedSearch, search, updateParams])
 
+  useEffect(() => {
+    if (searchParams.get('modal') !== 'create') return
+    setEditingProject(undefined)
+    setIsCreateDialogOpen(true)
+    setSearchParams((currentParams) => {
+      const nextParams = new URLSearchParams(currentParams)
+      nextParams.delete('modal')
+      return nextParams
+    })
+  }, [searchParams, setSearchParams])
+
   const listParams = useMemo<ProjectListParams>(() => ({ favorite, limit: pageSize, order, page, search: search || undefined, sort, status }), [favorite, order, page, search, sort, status])
   const { data, error, isError, isLoading, refetch } = useProjects(listParams)
   const deleteProject = useDeleteProject()

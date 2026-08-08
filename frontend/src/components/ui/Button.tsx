@@ -8,6 +8,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 type ButtonProps = HTMLMotionProps<"button"> & {
   children?: ReactNode;
   isLoading?: boolean;
+  size?: "default" | "icon";
   variant?: ButtonVariant;
 };
 
@@ -25,6 +26,7 @@ export function Button({
   className,
   disabled,
   isLoading = false,
+  size = "default",
   type = "button",
   variant = "primary",
   ...props
@@ -32,7 +34,8 @@ export function Button({
   return (
     <motion.button
       className={cn(
-        "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50",
+        size === "icon" ? "h-9 w-9 shrink-0 p-0" : "min-h-10 px-4",
         variantClasses[variant],
         className,
       )}
