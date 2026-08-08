@@ -236,6 +236,8 @@ model Snippet {
 
   userId        String
 
+  isFavorite  Boolean  @default(false)
+
   projectId     String?
 
   createdAt     DateTime @default(now())

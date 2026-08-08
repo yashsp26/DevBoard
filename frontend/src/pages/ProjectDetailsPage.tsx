@@ -1,7 +1,7 @@
 import { isAxiosError } from "axios";
 import {
   AlertCircle,
-  Boxes,
+  // Boxes,
   CloudOff,
   FolderKanban,
   ShieldAlert,
@@ -9,7 +9,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { EmptyState } from "../components/common/EmptyState";
 import { Button } from "../components/ui/Button";
-import { Card } from "../components/ui/Card";
+// import { Card } from "../components/ui/Card";
 import { Skeleton } from "../components/ui/Skeleton";
 import { ProjectDetailsHeader } from "../features/projects/ProjectDetailsHeader";
 import { ProjectOverview } from "../features/projects/ProjectOverview";
@@ -17,7 +17,7 @@ import { ProjectStats } from "../features/projects/ProjectStats";
 import { LabelsSection } from "../features/labels/LabelsSection";
 import { useProject } from "../services/useProjects";
 
-const modules = ["Snippets"];
+// const modules = ["All"];
 
 export function ProjectDetailsPage() {
   const { id } = useParams();
@@ -31,9 +31,9 @@ export function ProjectDetailsPage() {
         <Skeleton className="h-16 w-full" />
         <Skeleton className="h-48 w-full" />
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {modules.map((module) => (
+          {/* {modules.map((module) => (
             <Skeleton className="h-32" key={module} />
-          ))}
+          ))} */}
         </div>
       </main>
     );
@@ -99,7 +99,7 @@ export function ProjectDetailsPage() {
       <ProjectOverview project={project} />
       <ProjectStats project={project} />
       <LabelsSection projectId={project.id} />
-      <section>
+      {/* <section>
         <h2 className="mb-3 text-base font-semibold text-text">
           Workspace modules
         </h2>
@@ -109,12 +109,12 @@ export function ProjectDetailsPage() {
               <Boxes aria-hidden="true" className="size-5 text-muted" />
               <h3 className="mt-4 font-semibold text-text">{module}</h3>
               <p className="mt-1 text-sm leading-6 text-muted">
-                {module} will be available here in a future release.
+                {module} modules available.
               </p>
             </Card>
           ))}
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }

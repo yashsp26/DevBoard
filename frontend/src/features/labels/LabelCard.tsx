@@ -1,5 +1,5 @@
 import { Edit3, Trash2 } from "lucide-react";
-import { Button } from "../../components/ui/Button";
+import { ActionIconButton } from "../../components/common/ActionIconButton";
 import { Card } from "../../components/ui/Card";
 import type { Label } from "../../types/label";
 
@@ -25,24 +25,18 @@ export function LabelCard({
         <h3 className="truncate font-medium text-text">{label.name}</h3>
         <p className="text-sm text-muted">{label._count?.tasks ?? 0} Tasks</p>
       </div>
-      <div className="flex gap-1">
-        <Button
+      <div className="flex items-center gap-2">
+        <ActionIconButton
           aria-label={`Edit ${label.name}`}
-          className="size-12 min-h-0 p-0 pt-3"
+          icon={Edit3}
           onClick={onEdit}
-          variant="ghost"
-        >
-          <Edit3 aria-hidden="true" className="size-4" />
-        </Button>
-        <Button
+        />
+        <ActionIconButton
           aria-label={`Delete ${label.name}`}
-          className="size-14 min-h-0 p-0"
+          icon={Trash2}
           isLoading={isDeleting}
           onClick={onDelete}
-          variant="ghost"
-        >
-          <Trash2 aria-hidden="true" className="size-4" />
-        </Button>
+        />
       </div>
     </Card>
   );

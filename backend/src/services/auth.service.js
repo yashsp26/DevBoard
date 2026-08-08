@@ -266,7 +266,7 @@ export const forgotPassword = async (email) => {
       },
     });
   });
-
+  console.log("Sending reset email to", user.email, token)
   try {
     await sendForgotPasswordEmail(user, token);
   } catch (error) {

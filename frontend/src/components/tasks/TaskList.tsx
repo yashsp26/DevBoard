@@ -12,6 +12,7 @@ import {
 } from "../../types/task";
 import { getApiErrorMessage } from "../../utils/apiError";
 import { EmptyState } from "../common/EmptyState";
+import { ActionIconButton } from "../common/ActionIconButton";
 import { Button } from "../ui/Button";
 import { EmptyTasks } from "./EmptyTasks";
 import { LoadingTasks } from "./LoadingTasks";
@@ -49,28 +50,22 @@ function TaskListItem({
               </option>
             ))}
           </select>
-          <Button
+          <ActionIconButton
             aria-label={`Edit ${task.title}`}
-            className="size-9 min-h-0 p-0"
+            icon={Edit3}
             onClick={(event) => {
               event.stopPropagation();
               onEditTask(task);
             }}
-            variant="ghost"
-          >
-            <Edit3 aria-hidden="true" className="size-4" />
-          </Button>
-          <Button
+          />
+          <ActionIconButton
             aria-label={`Delete ${task.title}`}
-            className="size-9 min-h-0 p-0"
+            icon={Trash2}
             onClick={(event) => {
               event.stopPropagation();
               onDeleteTask(task);
             }}
-            variant="ghost"
-          >
-            <Trash2 aria-hidden="true" className="size-4" />
-          </Button>
+          />
         </>
       }
       onClick={onOpenTask}

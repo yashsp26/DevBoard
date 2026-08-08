@@ -8,6 +8,7 @@ import { ProjectsPage } from '../pages/ProjectsPage'
 import { ProjectDetailsPage } from '../pages/ProjectDetailsPage'
 import { ProjectTasksPage } from '../pages/ProjectTasksPage'
 import { NotesPage } from '../pages/NotesPage'
+import { SnippetsPage } from '../pages/SnippetsPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { ForbiddenPage, NetworkErrorPage, NotFoundPage } from '../pages/StatusPages'
 import { DashboardLayout } from '../layouts/DashboardLayout'
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
               { path: '/profile', element: <ProfilePage /> },
               { path: '/projects', element: <ProjectsPage /> },
               { path: '/notes', element: <NotesPage /> },
+              { path: '/snippets', element: <SnippetsPage /> },
               { path: '/projects/:id', element: <ProjectDetailsPage /> },
               { path: '/projects/:id/tasks', element: <ProjectTasksPage /> },
             ],

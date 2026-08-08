@@ -60,7 +60,7 @@ export function ProfileEditSection({ isLoading, profile }: ProfileEditSectionPro
         <AvatarUploader fallbackSrc={profile.profile?.avatar} name={profile.name} />
       </div>
       <form className="grid gap-5" noValidate onSubmit={handleSubmit((values) => mutate(values))}>
-        <Input defaultValue={profile.email} disabled label="Email" type="email" />
+        <Input defaultValue={profile.email} disabled label="Email" type="email" className="opacity-60"/>
         <Textarea error={errors.bio?.message} label="Bio" {...register('bio')} />
         <Input error={errors.location?.message} label="Location" {...register('location')} />
         <div className="grid gap-5 sm:grid-cols-2">
