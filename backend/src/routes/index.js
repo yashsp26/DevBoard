@@ -19,7 +19,7 @@ const router = Router();
 router.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Faaaaa API is running",
+    message: "DevBoard API is running",
   });
 });
 

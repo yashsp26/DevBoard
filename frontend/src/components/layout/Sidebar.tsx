@@ -20,7 +20,7 @@ export function Sidebar({ items }: SidebarProps) {
         to="/dashboard"
       >
         <PanelLeft aria-hidden="true" className="size-5 text-primary" />
-        Faaaaa
+        DevBoard
       </NavLink>
       <nav aria-label="Primary navigation" className="grid gap-1">
         {items.map(({ icon: Icon, label, to }) => (

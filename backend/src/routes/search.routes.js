@@ -21,7 +21,7 @@ router.use(authMiddleware);
  * @swagger
  * /search:
  *   get:
- *     summary: Search across Faaaaa resources
+ *     summary: Search across DevBoard resources
  *     tags: [Search]
  *     security:
  *       - bearerAuth: []
@@ -46,10 +46,6 @@ router.use(authMiddleware);
  *             - labels
  *         description: Resource type to search
  */
-router.get(
-  "/",
-  validate(searchSchema),
-  search,
-);
+router.get("/", validate(searchSchema), search);
 
 export default router;

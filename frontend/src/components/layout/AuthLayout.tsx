@@ -15,7 +15,7 @@ export function AuthLayout({ children, description, title }: AuthLayoutProps) {
       <section className="relative hidden overflow-hidden p-12 lg:flex lg:flex-col lg:justify-between">
         <div className="relative z-10 flex items-center gap-2 text-lg font-semibold tracking-tight text-text">
           <Code2 aria-hidden="true" className="size-5 text-primary" />
-          Faaaaa
+          DevBoard
         </div>
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center">
           <div className="max-w-md space-y-5">
@@ -46,7 +46,7 @@ export function AuthLayout({ children, description, title }: AuthLayoutProps) {
           transition={{ duration: 0.28, ease: "easeOut" }}
         >
           <div className="mb-8 space-y-2">
-            <p className="text-sm font-medium text-primary">Faaaaa</p>
+            <p className="text-sm font-medium text-primary">DevBoard</p>
             <h1 className="text-3xl font-semibold tracking-tight text-text">
               {title}
             </h1>

@@ -4,10 +4,9 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "Faaaaa API",
+      title: "DevBoard API",
       version: "1.0.0",
-      description:
-        "Production-ready REST API for Faaaaa.",
+      description: "Production-ready REST API for DevBoard.",
     },
 
     servers: [
@@ -103,11 +102,7 @@ const options = {
     ],
   },
 
-  apis: [
-    "./src/routes/*.js",
-    "./src/controllers/*.js",
-    "./src/docs/*.js"
-  ],
+  apis: ["./src/routes/*.js", "./src/controllers/*.js", "./src/docs/*.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

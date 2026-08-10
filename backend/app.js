@@ -19,6 +19,10 @@ import snippetRoutes from "./src/routes/snippet.routes.js";
 import dashboardRoutes from "./src/routes/dashboard.routes.js";
 import searchRoutes from "./src/routes/search.routes.js";
 
+// execution routes
+import executionRoutes from "./src/execution/execution.routes.js";
+
+
 import notFoundMiddleware from "./src/middleware/notFound.middleware.js";
 import errorMiddleware from "./src/middleware/error.middleware.js";
 
@@ -57,6 +61,9 @@ app.use("/api/v1/", noteRoutes);
 app.use("/api/v1/snippets", snippetRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/search", searchRoutes);
+
+// execution routes
+app.use("/api/v1/execution", executionRoutes);
 
 app.use("/api", routes);
 

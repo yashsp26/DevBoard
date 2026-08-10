@@ -111,7 +111,7 @@ export function ProjectFormDialog({
           error={errors.name?.message}
           label="Project name"
           maxLength={100}
-          placeholder="e.g. Faaaaa redesign"
+          placeholder="e.g. DevBoard redesign"
           {...register("name")}
         />
         <Textarea

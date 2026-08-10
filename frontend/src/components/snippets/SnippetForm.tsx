@@ -1,9 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { Play } from "lucide-react";
 import { languages } from "../../features/snippets/languages";
+import { useRunExecution } from "../../services/useExecution";
 import { useProjects } from "../../services/useProjects";
 import type { Snippet, SnippetInput } from "../../types/snippet";
+import { toast } from "sonner";
+import { Button } from "../ui/Button";
+import { ExecutionOutput } from "./ExecutionOutput";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
 import { SnippetEditor } from "./SnippetEditor";
@@ -57,6 +62,7 @@ export function SnippetForm({
     resolver: zodResolver(schema),
   });
   const language = watch("language");
+  const execution = useRunExecution();
   return (
     <form
       className="space-y-5"
@@ -134,13 +140,45 @@ export function SnippetForm({
         control={control}
         name="code"
         render={({ field }) => (
-          <SnippetEditor
-            disabled={isSubmitting}
-            error={errors.code?.message}
-            language={language}
-            onChange={(value) => field.onChange(value)}
-            value={field.value}
-          />
+          <div className="space-y-3">
+            <SnippetEditor
+              disabled={isSubmitting}
+              error={errors.code?.message}
+              language={language}
+              onChange={(value) => field.onChange(value)}
+              value={field.value}
+            />
+            <div className="flex justify-end">
+              <Button
+                disabled={isSubmitting}
+                isLoading={execution.isRunning}
+                onClick={() => {
+                  if (!field.value.trim()) {
+                    toast.error("Nothing to run.");
+                    return;
+                  }
+
+                  execution.run({
+                    language: "javascript",
+                    framework: "node",
+                    entryPoint: "index.js",
+                    files: [{ path: "index.js", content: field.value }],
+                    stdin: "",
+                    timeoutMs: 10000,
+                  });
+                }}
+              >
+                {!execution.isRunning && <Play aria-hidden="true" className="size-4" />}
+                {execution.isRunning ? "Running..." : "Run"}
+              </Button>
+            </div>
+            {execution.state.status !== "idle" && (
+              <ExecutionOutput
+                onClose={execution.clear}
+                state={execution.state}
+              />
+            )}
+          </div>
         )}
       />
     </form>

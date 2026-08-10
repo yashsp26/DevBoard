@@ -51,7 +51,7 @@ export function LoginForm() {
         Sign in
       </Button>
       <p className="text-center text-sm text-muted">
-        New to Faaaaa?{" "}
+        New to DevBoard?{" "}
         <Link
           className="font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-primary"
           to="/register"
