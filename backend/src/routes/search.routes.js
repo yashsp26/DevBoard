@@ -21,7 +21,7 @@ router.use(authMiddleware);
  * @swagger
  * /search:
  *   get:
- *     summary: Search across DevBoard resources
+ *     summary: Search across Faaaaa resources
  *     tags: [Search]
  *     security:
  *       - bearerAuth: []

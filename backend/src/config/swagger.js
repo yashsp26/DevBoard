@@ -4,10 +4,10 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "DevBoard API",
+      title: "Faaaaa API",
       version: "1.0.0",
       description:
-        "Production-ready REST API for DevBoard.",
+        "Production-ready REST API for Faaaaa.",
     },
 
     servers: [

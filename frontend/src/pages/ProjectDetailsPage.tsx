@@ -63,7 +63,7 @@ export function ProjectDetailsPage() {
               : isUnauthorized
                 ? "Sign in again to access this project."
                 : isNetworkError
-                  ? "DevBoard could not reach the server. Check your connection and try again."
+                  ? "Faaaaa could not reach the server. Check your connection and try again."
                   : "We couldn’t load this project. Please try again."
           }
           icon={

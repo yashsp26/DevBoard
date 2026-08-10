@@ -15,7 +15,7 @@ export const sendWelcomeEmail = async (
 
   await sendEmail({
     to: user.email,
-    subject: "Welcome to DevBoard 🚀",
+    subject: "Welcome to Faaaaa 🚀",
     htmlContent: html,
   });
 };
@@ -38,7 +38,7 @@ export const sendForgotPasswordEmail = async (
 
   await sendEmail({
     to: user.email,
-    subject: "Reset your DevBoard password",
+    subject: "Reset your Faaaaa password",
     htmlContent: html,
   });
 };
