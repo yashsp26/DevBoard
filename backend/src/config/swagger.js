@@ -6,8 +6,7 @@ const options = {
     info: {
       title: "DevBoard API",
       version: "1.0.0",
-      description:
-        "Production-ready REST API for DevBoard.",
+      description: "Production-ready REST API for DevBoard.",
     },
 
     servers: [
@@ -103,11 +102,7 @@ const options = {
     ],
   },
 
-  apis: [
-    "./src/routes/*.js",
-    "./src/controllers/*.js",
-    "./src/docs/*.js"
-  ],
+  apis: ["./src/routes/*.js", "./src/controllers/*.js", "./src/docs/*.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

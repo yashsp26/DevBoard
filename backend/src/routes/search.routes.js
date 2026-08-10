@@ -46,10 +46,6 @@ router.use(authMiddleware);
  *             - labels
  *         description: Resource type to search
  */
-router.get(
-  "/",
-  validate(searchSchema),
-  search,
-);
+router.get("/", validate(searchSchema), search);
 
 export default router;
