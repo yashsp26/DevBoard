@@ -19,7 +19,7 @@ export function Textarea({ className, error, id, label, ...props }: TextareaProp
         aria-describedby={error ? errorId : undefined}
         aria-invalid={Boolean(error)}
         className={cn(
-          'min-h-28 resize-y rounded-lg border bg-app px-3 py-2 text-sm text-text outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20',
+          'min-h-20 resize-y rounded-lg border bg-app px-3 py-2 text-sm text-text outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20',
           error ? 'border-danger' : 'border-border',
           className,
         )}

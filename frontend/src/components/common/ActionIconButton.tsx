@@ -21,13 +21,13 @@ export function ActionIconButton({
     <Button
       {...props}
       className={cn(
-        "h-9 w-9 min-h-0 shrink-0 p-0 hover:bg-elevated",
+        "size-10 min-h-10 shrink-0 p-0 hover:bg-elevated",
         className,
       )}
       size="icon"
       variant={props.variant ?? "ghost"}
     >
-      <Icon aria-hidden="true" className={cn("size-4", iconClassName)} />
+      <Icon aria-hidden="true" className={cn("size-[18px] shrink-0", iconClassName)} />
     </Button>
   );
 }

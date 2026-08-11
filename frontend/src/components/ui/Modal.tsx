@@ -1,22 +1,33 @@
 import { X } from "lucide-react";
 import { motion } from "motion/react";
-import { type ReactNode, useEffect, useId, useRef } from "react";
+import {
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+} from "react";
 
 type ModalProps = {
+  bodyClassName?: string;
   children: ReactNode;
   contentClassName?: string;
   footer?: ReactNode;
   isOpen: boolean;
   onClose: () => void;
+  size?: "compact" | "default" | "medium" | "wide";
+  subtitle?: string;
   title: string;
 };
 
 export function Modal({
+  bodyClassName = "overflow-y-auto p-5",
   children,
   contentClassName = "",
   footer,
   isOpen,
   onClose,
+  size = "default",
+  subtitle,
   title,
 }: ModalProps) {
   const titleId = useId();
@@ -28,6 +39,8 @@ export function Modal({
     }
 
     const activeElement = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -55,7 +68,10 @@ export function Modal({
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === last
+      ) {
         event.preventDefault();
         first.focus();
       }
@@ -65,6 +81,7 @@ export function Modal({
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
       activeElement?.focus();
     };
   }, [isOpen, onClose]);
@@ -78,7 +95,7 @@ export function Modal({
       animate={{ opacity: 1 }}
       aria-labelledby={titleId}
       aria-modal="true"
-      className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 grid place-items-center bg-black/55 p-5 backdrop-blur-sm"
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       onMouseDown={(event) => {
@@ -91,36 +108,72 @@ export function Modal({
     >
       <motion.div
         ref={dialogRef}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className={`flex max-h-[calc(100vh-2rem)] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-border-subtle bg-elevated shadow-2xl ${contentClassName}`}
-        exit={{ opacity: 0, scale: 0.98, y: 8 }}
-        initial={{ opacity: 0, scale: 0.98, y: 8 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: 0,
+        }}
+        className={`flex max-h-[calc(100vh-2.5rem)] flex-col overflow-hidden rounded-xl border border-border-subtle bg-elevated shadow-2xl ${
+          size === "wide"
+            ? "h-[calc(100vh-2.5rem)] w-[calc(100vw-2.5rem)]"
+            : size === "compact"
+              ? "w-full max-w-md"
+              : size === "medium"
+                ? "w-full max-w-2xl"
+                : "w-full max-w-lg"
+        } ${contentClassName}`}
+        exit={{
+          opacity: 0,
+          scale: 0.98,
+          y: 8,
+        }}
+        initial={{
+          opacity: 0,
+          scale: 0.98,
+          y: 8,
+        }}
         tabIndex={-1}
         transition={{ duration: 0.16 }}
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-border-subtle px-6 py-4">
-          <h2 className="text-lg font-semibold text-text" id={titleId}>
-            {title}
-          </h2>
+        {/* Header */}
+        <header className="flex shrink-0 items-center justify-between border-b border-border-subtle px-5 py-3.5">
+          <div className="min-w-0">
+            <h2
+              id={titleId}
+              className="text-base font-semibold leading-tight text-text"
+            >
+              {title}
+            </h2>
+
+            {subtitle && (
+              <p className="mt-1 text-xs text-muted">
+                {subtitle}
+              </p>
+            )}
+          </div>
 
           <button
             aria-label="Close dialog"
-            className="rounded-md p-2 text-muted transition hover:bg-app hover:text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="ml-4 flex size-10 shrink-0 items-center justify-center rounded-lg text-muted transition hover:bg-app hover:text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
             onClick={onClose}
             type="button"
           >
             <X className="size-5" />
           </button>
-        </div>
+        </header>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+        {/* Body */}
+        <div
+          className={`min-h-0 flex-1 ${bodyClassName}`}
+        >
           {children}
         </div>
 
+        {/* Footer */}
         {footer && (
-          <div className="flex shrink-0 justify-end gap-3 border-t border-border-subtle px-6 py-4">
+          <footer className="flex shrink-0 items-center justify-between border-t border-border-subtle px-5 py-3">
             {footer}
-          </div>
+          </footer>
         )}
       </motion.div>
     </motion.div>

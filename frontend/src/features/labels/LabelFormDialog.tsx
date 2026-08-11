@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../../components/ui/Button";
@@ -31,6 +31,7 @@ export function LabelFormDialog({
   const createLabel = useCreateLabel();
   const updateLabel = useUpdateLabel();
   const editing = Boolean(label);
+  const formId = useId();
   const {
     formState: { errors },
     handleSubmit,
@@ -57,11 +58,22 @@ export function LabelFormDialog({
       : createLabel.mutate({ data, projectId }, { onSuccess: onClose });
   return (
     <Modal
+      footer={
+        <div className="ml-auto flex items-center gap-3">
+          <Button disabled={pending} onClick={onClose} variant="secondary">
+            Cancel
+          </Button>
+          <Button form={formId} isLoading={pending} type="submit">
+            {editing ? "Save changes" : "Create label"}
+          </Button>
+        </div>
+      }
       isOpen
       onClose={onClose}
+      size="compact"
       title={editing ? "Edit label" : "Create label"}
     >
-      <form className="space-y-5" noValidate onSubmit={handleSubmit(submit)}>
+      <form className="space-y-4" id={formId} noValidate onSubmit={handleSubmit(submit)}>
         {error && (
           <div
             className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-3 text-sm text-danger"
@@ -81,12 +93,12 @@ export function LabelFormDialog({
           {...register("name")}
         />
         <label
-          className="grid gap-2 text-sm font-medium text-text"
+          className="flex items-center justify-between gap-4 rounded-lg border border-border bg-app px-3 py-2.5 text-sm font-medium text-text"
           htmlFor="label-color"
         >
-          Color Picker
+          <span>Label color</span>
           <input
-            className="h-10 w-full cursor-pointer rounded-lg border border-border bg-app p-1"
+            className="size-10 shrink-0 cursor-pointer rounded-lg border border-border-subtle bg-transparent p-1"
             disabled={pending}
             id="label-color"
             type="color"
@@ -96,14 +108,6 @@ export function LabelFormDialog({
         {errors.color && (
           <p className="text-sm text-danger">{errors.color.message}</p>
         )}
-        <div className="flex justify-end gap-3">
-          <Button disabled={pending} onClick={onClose} variant="secondary">
-            Cancel
-          </Button>
-          <Button isLoading={pending} type="submit">
-            {editing ? "Save changes" : "Create label"}
-          </Button>
-        </div>
       </form>
     </Modal>
   );
