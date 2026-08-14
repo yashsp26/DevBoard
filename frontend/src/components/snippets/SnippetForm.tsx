@@ -1,7 +1,10 @@
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { languages } from "../../features/snippets/languages";
+import {
+  languageLabels,
+  languages,
+} from "../../features/snippets/languages";
 import { useRunExecution } from "../../services/useExecution";
 import { useProjects } from "../../services/useProjects";
 import type { Snippet, SnippetInput } from "../../types/snippet";
@@ -23,11 +26,17 @@ const schema = z.object({
     .trim()
     .max(500, "Description cannot exceed 500 characters."),
 
-  language: z.string().min(1, "Choose a language."),
+  language: z.enum(languages, "Choose a language."),
 
   code: z.string().trim().min(1, "Code cannot be empty."),
 
   projectId: z.string().optional(),
+
+  filePath: z
+    .string()
+    .trim()
+    .max(512, "File path cannot exceed 512 characters.")
+    .optional(),
 });
 
 type Values = z.infer<typeof schema>;
@@ -62,11 +71,13 @@ export function SnippetForm({
       language: snippet?.language ?? "typescript",
       code: snippet?.code ?? "",
       projectId: snippet?.projectId ?? "",
+      filePath: snippet?.filePath ?? "",
     },
     resolver: zodResolver(schema),
   });
 
   const language = watch("language");
+  const projectId = watch("projectId");
   const execution = useRunExecution();
 
   return (
@@ -78,6 +89,7 @@ export function SnippetForm({
         onSubmit({
           ...values,
           projectId: values.projectId || undefined,
+          filePath: values.projectId ? values.filePath || undefined : null,
         });
       })}
     >
@@ -112,7 +124,7 @@ export function SnippetForm({
 
                 {languages.map((item) => (
                   <option key={item} value={item}>
-                    {item}
+                    {languageLabels[item]}
                   </option>
                 ))}
               </select>
@@ -148,6 +160,17 @@ export function SnippetForm({
               </select>
             </div>
           </div>
+
+          {projectId && (
+            <Input
+              disabled={isSubmitting}
+              error={errors.filePath?.message}
+              helperText="Path relative to the project root."
+              label="File path"
+              placeholder="src/controllers/user.controller.ts"
+              {...register("filePath")}
+            />
+          )}
 
           <Textarea
             className="min-h-20 resize-none"
@@ -191,7 +214,10 @@ export function SnippetForm({
               }
 
               execution.run({
-                language: "javascript",
+                language:
+                  language === "typescript"
+                    ? "typescript"
+                    : "javascript",
                 framework: "node",
                 entryPoint: "index.js",
                 files: [

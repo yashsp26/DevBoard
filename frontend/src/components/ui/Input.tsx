@@ -3,11 +3,12 @@ import { cn } from '../../utils/cn'
 
 type InputProps = Omit<ComponentPropsWithoutRef<'input'>, 'id'> & {
   error?: string
+  helperText?: string
   id?: string
   label: string
 }
 
-export function Input({ className, error, id, label, ...props }: InputProps) {
+export function Input({ className, error, helperText, id, label, ...props }: InputProps) {
   const generatedId = useId()
   const inputId = id ?? generatedId
   const errorId = `${inputId}-error`
@@ -30,6 +31,9 @@ export function Input({ className, error, id, label, ...props }: InputProps) {
         <span className="text-sm font-normal text-danger" id={errorId}>
           {error}
         </span>
+      )}
+      {helperText && !error && (
+        <span className="text-xs font-normal text-muted">{helperText}</span>
       )}
     </label>
   )

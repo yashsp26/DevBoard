@@ -44,7 +44,7 @@ export function DashboardLayout() {
           title={
             pathname.startsWith("/projects/")
               ? "Project details"
-              : (routeTitles[pathname] ?? "DevBoard")
+              : (routeTitles[pathname] ?? "DevLupo")
           }
         />
         <Outlet />

@@ -221,6 +221,7 @@ model Note {
   user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   project       Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
 }
 
 model Snippet {
@@ -240,6 +241,8 @@ model Snippet {
 
   projectId     String?
 
+  filePath      String?  @db.VarChar(512)
+
   createdAt     DateTime @default(now())
 
   updatedAt     DateTime @updatedAt
@@ -247,6 +250,8 @@ model Snippet {
   user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   project       Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@unique([projectId, filePath])
 }
 
 model Notification {

@@ -32,7 +32,7 @@ export function NetworkErrorPage() {
           action={
             <Button onClick={() => window.location.reload()}>Try again</Button>
           }
-          description="DevBoard could not reach the server. Check your connection and try again."
+          description="DevLupo could not reach the server. Check your connection and try again."
           icon={CloudOff}
           title="Connection problem"
         />

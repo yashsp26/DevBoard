@@ -1,6 +1,9 @@
 import Editor from "@monaco-editor/react";
 import { editorOptions } from "../../features/snippets/editorOptions";
-import { languageMap } from "../../features/snippets/languages";
+import {
+  languageMap,
+  type SnippetLanguage,
+} from "../../features/snippets/languages";
 import { useTheme } from "../../context/ThemeContext";
 
 export function SnippetPreview({
@@ -8,7 +11,7 @@ export function SnippetPreview({
   language,
 }: {
   code: string;
-  language: string;
+  language: SnippetLanguage;
 }) {
   const { theme } = useTheme();
   return (

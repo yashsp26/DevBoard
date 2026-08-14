@@ -21,7 +21,7 @@ router.use(authMiddleware);
  * @swagger
  * /search:
  *   get:
- *     summary: Search across DevBoard resources
+ *     summary: Search across DevLupo resources
  *     tags: [Search]
  *     security:
  *       - bearerAuth: []

@@ -1,4 +1,11 @@
+import type { SnippetLanguage } from "../features/snippets/languages";
+
 export type ExecutionStatus = "completed" | "failed" | "timeout";
+
+export type ExecutionLanguage = Extract<
+  SnippetLanguage,
+  "javascript" | "typescript"
+>;
 
 export type ExecutionFile = {
   path: string;
@@ -6,7 +13,7 @@ export type ExecutionFile = {
 };
 
 export type RunCodeRequest = {
-  language: string;
+  language: ExecutionLanguage;
   framework?: string;
   entryPoint: string;
   files: ExecutionFile[];

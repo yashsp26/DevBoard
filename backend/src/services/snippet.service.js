@@ -2,6 +2,8 @@ import prisma from "../config/prisma.js";
 
 import ApiError from "../utils/ApiError.js";
 
+const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+
 const getProjectOwnership = async (projectId, userId) => {
   if (!projectId) return;
 
@@ -20,25 +22,34 @@ const getProjectOwnership = async (projectId, userId) => {
 export const createSnippet = async (userId, data) => {
   await getProjectOwnership(data.projectId, userId);
 
-  return await prisma.snippet.create({
-    data: {
-      title: data.title,
-      description: data.description ?? null,
-      language: data.language,
-      code: data.code,
-      projectId: data.projectId ?? null,
-      userId,
-    },
-    include: {
-      project: {
-        select: {
-          id: true,
-          name: true,
-          color: true,
+  try {
+    return await prisma.snippet.create({
+      data: {
+        title: data.title,
+        description: data.description ?? null,
+        language: data.language,
+        code: data.code,
+        projectId: data.projectId ?? null,
+        filePath: data.projectId ? data.filePath : null,
+        userId,
+      },
+      include: {
+        project: {
+          select: {
+            id: true,
+            name: true,
+            color: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    if (error.code === "P2002") {
+      throw new ApiError(409, "Another file in this project already uses this path.");
+    }
+
+    throw error;
+  }
 };
 
 export const getSnippets = async (userId, query) => {
@@ -157,25 +168,52 @@ export const updateSnippet = async (id, userId, data) => {
     throw new ApiError(404, "Snippet not found.");
   }
 
-  await getProjectOwnership(data.projectId, userId);
+  const nextProjectId = hasOwn(data, "projectId")
+    ? data.projectId
+    : snippet.projectId;
+  const nextFilePath = hasOwn(data, "filePath")
+    ? data.filePath
+    : snippet.filePath;
 
-  return await prisma.snippet.update({
-    where: {
-      id,
-    },
-    data: {
-      ...data,
-    },
-    include: {
-      project: {
-        select: {
-          id: true,
-          name: true,
-          color: true,
+  await getProjectOwnership(nextProjectId, userId);
+
+  if (
+    nextProjectId &&
+    !nextFilePath &&
+    (
+      (hasOwn(data, "projectId") && data.projectId !== snippet.projectId) ||
+      hasOwn(data, "filePath")
+    )
+  ) {
+    throw new ApiError(400, "File path is required for project snippets.");
+  }
+
+  try {
+    return await prisma.snippet.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+        ...(nextProjectId ? {} : { filePath: null }),
+      },
+      include: {
+        project: {
+          select: {
+            id: true,
+            name: true,
+            color: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    if (error.code === "P2002") {
+      throw new ApiError(409, "Another file in this project already uses this path.");
+    }
+
+    throw error;
+  }
 };
 
 export const deleteSnippet = async (id, userId) => {

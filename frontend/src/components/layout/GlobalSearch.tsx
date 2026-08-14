@@ -100,7 +100,7 @@ export function GlobalSearch() {
         className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
       />
       <input
-        aria-label="Search DevBoard"
+        aria-label="Search DevLupo"
         className="min-h-10 w-full rounded-lg border border-border bg-app py-2 pl-9 pr-9 text-sm text-text outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20"
         onChange={(event) => setQuery(event.target.value)}
         onFocus={() => setIsOpen(true)}
@@ -122,7 +122,7 @@ export function GlobalSearch() {
             openResult(flatResults[highlightedIndex]);
           }
         }}
-        placeholder="Search DevBoard..."
+        placeholder="Search DevLupo..."
         type="search"
         value={query}
       />
@@ -255,7 +255,7 @@ export function GlobalSearch() {
       <div className="hidden w-72 md:block">{searchField()}</div>
       <div className="md:hidden">
         <Button
-          aria-label="Search DevBoard"
+          aria-label="Search DevLupo"
           onClick={() => {
             const next = !isMobileOpen;
             setIsMobileOpen(next);
