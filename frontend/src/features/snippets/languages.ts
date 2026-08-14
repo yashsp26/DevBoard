@@ -1,4 +1,29 @@
-export const languageMap: Record<string, string> = {
+export const snippetLanguages = [
+  "javascript",
+  "typescript",
+  "cpp",
+  "react",
+  "node",
+  "html",
+  "css",
+  "scss",
+  "json",
+  "markdown",
+  "sql",
+  "csharp",
+  "python",
+  "java",
+  "go",
+  "rust",
+  "php",
+  "shell",
+  "yaml",
+  "xml",
+] as const;
+
+export type SnippetLanguage = (typeof snippetLanguages)[number];
+
+export const languageMap: Record<SnippetLanguage, string> = {
   javascript: "javascript",
   typescript: "typescript",
   cpp: "cpp",
@@ -21,4 +46,27 @@ export const languageMap: Record<string, string> = {
   xml: "xml",
 };
 
-export const languages = Object.keys(languageMap);
+export const languages = snippetLanguages;
+
+export const languageLabels: Record<SnippetLanguage, string> = {
+  javascript: "JavaScript",
+  typescript: "TypeScript",
+  cpp: "C++",
+  react: "React",
+  node: "Node.js",
+  html: "HTML",
+  css: "CSS",
+  scss: "SCSS",
+  json: "JSON",
+  markdown: "Markdown",
+  sql: "SQL",
+  csharp: "C#",
+  python: "Python",
+  java: "Java",
+  go: "Go",
+  rust: "Rust",
+  php: "PHP",
+  shell: "Shell",
+  yaml: "YAML",
+  xml: "XML",
+};

@@ -1,142 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to DevLupo</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to DevBoard</title>
-</head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background: #080d18;
+      font-family:
+        -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto,
+        Helvetica, Arial, sans-serif;
+      color: #e6edf3;
+    "
+  >
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="background: #080d18; padding: 48px 16px"
+    >
+      <tr>
+        <td align="center">
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              max-width: 640px;
+              background: #0f172a;
+              border: 1px solid #1e293b;
+              border-radius: 18px;
+              overflow: hidden;
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                align="center"
+                style="
+                  padding: 42px 32px;
+                  background: linear-gradient(135deg, #0f1b33 0%, #0b1220 100%);
+                  border-bottom: 1px solid #1e293b;
+                "
+              >
+                <div style="margin-bottom: 20px">
+                  <div
+                    style="
+                      display: inline-block;
+                      padding: 10px 14px;
+                      border: 1px solid #2563eb;
+                      border-radius: 12px;
+                      background: #111c35;
+                    "
+                  >
+                    <span
+                      style="font-size: 24px; font-weight: 700; color: #60a5fa"
+                      >&lt;/&gt;</span
+                    >
+                  </div>
+                </div>
 
-<body
-    style="margin:0;padding:0;background:#080d18;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#e6edf3;">
+                <h1
+                  style="
+                    margin: 0;
+                    color: #f8fafc;
+                    font-size: 30px;
+                    line-height: 38px;
+                    font-weight: 700;
+                  "
+                >
+                  Welcome to <span style="color: #3b82f6">DevLupo</span>
+                </h1>
 
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-        style="background:#080d18;padding:48px 16px;">
-        <tr>
-            <td align="center">
+                <p
+                  style="
+                    margin: 12px 0 0;
+                    color: #94a3b8;
+                    font-size: 16px;
+                    line-height: 26px;
+                  "
+                >
+                  Your developer workspace is ready.
+                </p>
+              </td>
+            </tr>
 
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                    style="max-width:640px;background:#0f172a;border:1px solid #1e293b;border-radius:18px;overflow:hidden;">
+            <!-- Content -->
+            <tr>
+              <td style="padding: 40px">
+                <p style="margin: 0 0 22px; font-size: 18px; color: #f8fafc">
+                  Hi <strong>{{name}}</strong>,
+                </p>
 
-                    <!-- Header -->
-                    <tr>
-                        <td align="center"
-                            style="padding:42px 32px;background:linear-gradient(135deg,#0f1b33 0%,#0b1220 100%);border-bottom:1px solid #1e293b;">
+                <p
+                  style="
+                    margin: 0 0 18px;
+                    font-size: 15px;
+                    line-height: 28px;
+                    color: #cbd5e1;
+                  "
+                >
+                  Welcome to <strong style="color: #f8fafc">DevLupo</strong> — a
+                  focused workspace built to help developers keep their
+                  projects, tasks, notes, and code organized in one place.
+                </p>
 
-                            <div style="margin-bottom:20px;">
-                                <div
-                                    style="display:inline-block;padding:10px 14px;border:1px solid #2563eb;border-radius:12px;background:#111c35;">
-                                    <span style="font-size:24px;font-weight:700;color:#60a5fa;">&lt;/&gt;</span>
-                                </div>
-                            </div>
+                <p
+                  style="
+                    margin: 0;
+                    font-size: 15px;
+                    line-height: 28px;
+                    color: #cbd5e1;
+                  "
+                >
+                  Everything you need to stay organized while building is now
+                  right at your fingertips.
+                </p>
 
-                            <h1 style="margin:0;color:#f8fafc;font-size:30px;line-height:38px;font-weight:700;">
-                                Welcome to <span style="color:#3b82f6;">DevBoard</span>
-                            </h1>
+                <!-- Features -->
+                <table
+                  role="presentation"
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="margin: 32px 0"
+                >
+                  <tr>
+                    <td
+                      style="
+                        background: #0b1220;
+                        border: 1px solid #1e293b;
+                        border-radius: 14px;
+                        padding: 24px;
+                      "
+                    >
+                      <p
+                        style="
+                          margin: 0 0 18px;
+                          color: #60a5fa;
+                          font-size: 14px;
+                          font-weight: 700;
+                          letter-spacing: 0.3px;
+                        "
+                      >
+                        YOUR WORKSPACE
+                      </p>
 
-                            <p style="margin:12px 0 0;color:#94a3b8;font-size:16px;line-height:26px;">
-                                Your developer workspace is ready.
-                            </p>
+                      <p
+                        style="
+                          margin: 10px 0;
+                          color: #cbd5e1;
+                          font-size: 14px;
+                          line-height: 22px;
+                        "
+                      >
+                        <span style="color: #3b82f6; font-weight: 700">01</span>
+                        &nbsp; Create and organize projects
+                      </p>
 
-                        </td>
-                    </tr>
+                      <p
+                        style="
+                          margin: 10px 0;
+                          color: #cbd5e1;
+                          font-size: 14px;
+                          line-height: 22px;
+                        "
+                      >
+                        <span style="color: #3b82f6; font-weight: 700">02</span>
+                        &nbsp; Manage tasks and priorities
+                      </p>
 
-                    <!-- Content -->
-                    <tr>
-                        <td style="padding:40px;">
+                      <p
+                        style="
+                          margin: 10px 0;
+                          color: #cbd5e1;
+                          font-size: 14px;
+                          line-height: 22px;
+                        "
+                      >
+                        <span style="color: #3b82f6; font-weight: 700">03</span>
+                        &nbsp; Keep notes and code snippets together
+                      </p>
 
-                            <p style="margin:0 0 22px;font-size:18px;color:#f8fafc;">
-                                Hi <strong>{{name}}</strong>,
-                            </p>
-
-                            <p style="margin:0 0 18px;font-size:15px;line-height:28px;color:#cbd5e1;">
-                                Welcome to <strong style="color:#f8fafc;">DevBoard</strong> — a focused workspace built
-                                to help developers keep their projects, tasks, notes, and code organized in one place.
-                            </p>
-
-                            <p style="margin:0;font-size:15px;line-height:28px;color:#cbd5e1;">
-                                Everything you need to stay organized while building is now right at your fingertips.
-                            </p>
-
-                            <!-- Features -->
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                                style="margin:32px 0;">
-                                <tr>
-                                    <td
-                                        style="background:#0b1220;border:1px solid #1e293b;border-radius:14px;padding:24px;">
-
-                                        <p
-                                            style="margin:0 0 18px;color:#60a5fa;font-size:14px;font-weight:700;letter-spacing:.3px;">
-                                            YOUR WORKSPACE
-                                        </p>
-
-                                        <p style="margin:10px 0;color:#cbd5e1;font-size:14px;line-height:22px;">
-                                            <span style="color:#3b82f6;font-weight:700;">01</span>
-                                            &nbsp; Create and organize projects
-                                        </p>
-
-                                        <p style="margin:10px 0;color:#cbd5e1;font-size:14px;line-height:22px;">
-                                            <span style="color:#3b82f6;font-weight:700;">02</span>
-                                            &nbsp; Manage tasks and priorities
-                                        </p>
-
-                                        <p style="margin:10px 0;color:#cbd5e1;font-size:14px;line-height:22px;">
-                                            <span style="color:#3b82f6;font-weight:700;">03</span>
-                                            &nbsp; Keep notes and code snippets together
-                                        </p>
-
-                                        <p style="margin:10px 0 0;color:#cbd5e1;font-size:14px;line-height:22px;">
-                                            <span style="color:#3b82f6;font-weight:700;">04</span>
-                                            &nbsp; Stay focused on what you're building
-                                        </p>
-
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- CTA -->
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center"
-                                style="margin:36px auto 0;">
-                                <tr>
-                                    <td align="center" style="border-radius:10px;background:#2563eb;">
-
-                                        <a href=""
-                                            style="display:inline-block;padding:15px 34px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:10px;">
-                                            Open DevBoard&nbsp; →
-                                        </a>
-
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <p style="margin:34px 0 0;text-align:center;font-size:13px;line-height:24px;color:#64748b;">
-                                Build. Organize. Ship.
-                            </p>
-
-                        </td>
-                    </tr>
-
-                    <!-- Footer -->
-                    <tr>
-                        <td align="center" style="padding:26px 32px;background:#0b1220;border-top:1px solid #1e293b;">
-
-                            <p style="margin:0;color:#64748b;font-size:12px;">
-                                DevBoard — Your developer workspace
-                            </p>
-
-                            <p style="margin:10px 0 0;color:#475569;font-size:11px;">
-                                © {{year}} DevBoard. All rights reserved.
-                            </p>
-
-                        </td>
-                    </tr>
-
+                      <p
+                        style="
+                          margin: 10px 0 0;
+                          color: #cbd5e1;
+                          font-size: 14px;
+                          line-height: 22px;
+                        "
+                      >
+                        <span style="color: #3b82f6; font-weight: 700">04</span>
+                        &nbsp; Stay focused on what you're building
+                      </p>
+                    </td>
+                  </tr>
                 </table>
 
-            </td>
-        </tr>
+                <!-- CTA -->
+                <table
+                  role="presentation"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  align="center"
+                  style="margin: 36px auto 0"
+                >
+                  <tr>
+                    <td
+                      align="center"
+                      style="border-radius: 10px; background: #2563eb"
+                    >
+                      <a
+                        href=""
+                        style="
+                          display: inline-block;
+                          padding: 15px 34px;
+                          font-size: 15px;
+                          font-weight: 600;
+                          color: #ffffff;
+                          text-decoration: none;
+                          border-radius: 10px;
+                        "
+                      >
+                        Open DevLupo&nbsp; →
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <p
+                  style="
+                    margin: 34px 0 0;
+                    text-align: center;
+                    font-size: 13px;
+                    line-height: 24px;
+                    color: #64748b;
+                  "
+                >
+                  Build. Organize. Ship.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                align="center"
+                style="
+                  padding: 26px 32px;
+                  background: #0b1220;
+                  border-top: 1px solid #1e293b;
+                "
+              >
+                <p style="margin: 0; color: #64748b; font-size: 12px">
+                  DevLupo — Your developer workspace
+                </p>
+
+                <p style="margin: 10px 0 0; color: #475569; font-size: 11px">
+                  © {{year}} DevLupo. All rights reserved.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
     </table>
-
-</body>
-
+  </body>
 </html>

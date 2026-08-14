@@ -1,12 +1,9 @@
 /**
  * Convert an absolute temporary file path into the
- * logical DevBoard file path.
+ * logical DevLupo file path.
  */
 function normalizeLocation(line) {
-  return line.replace(
-    /.*[\\/](index\.js:\d+:\d+)/,
-    "at $1"
-  );
+  return line.replace(/.*[\\/](index\.js:\d+:\d+)/, "at $1");
 }
 
 /**
@@ -28,16 +25,12 @@ export function formatNodeError(stderr, fallbackMessage) {
       line.startsWith("TypeError:") ||
       line.startsWith("ReferenceError:") ||
       line.startsWith("SyntaxError:") ||
-      line.startsWith("RangeError:")
+      line.startsWith("RangeError:"),
   );
 
-  const stackLine = lines.find((line) =>
-    /\d+:\d+\)?$/.test(line)
-  );
+  const stackLine = lines.find((line) => /\d+:\d+\)?$/.test(line));
 
-  const location = stackLine
-    ? normalizeLocation(stackLine)
-    : null;
+  const location = stackLine ? normalizeLocation(stackLine) : null;
 
   if (errorLine && location) {
     return `${errorLine}\n${location}`;

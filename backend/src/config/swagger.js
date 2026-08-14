@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "DevBoard API",
+      title: "DevLupo API",
       version: "1.0.0",
-      description: "Production-ready REST API for DevBoard.",
+      description: "Production-ready REST API for DevLupo.",
     },
 
     servers: [

@@ -108,7 +108,12 @@ export function ProjectFormDialog({
       size="medium"
       title={isEditing ? "Edit project" : "Create project"}
     >
-      <form className="space-y-5" id={formId} noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="space-y-5"
+        id={formId}
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {(isEditing ? updateProject.error : createProject.error) && (
           <div
             className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-3 text-sm text-danger"
@@ -126,7 +131,7 @@ export function ProjectFormDialog({
           error={errors.name?.message}
           label="Project name"
           maxLength={100}
-          placeholder="e.g. DevBoard redesign"
+          placeholder="e.g. DevLupo redesign"
           {...register("name")}
         />
         <Textarea
@@ -139,7 +144,9 @@ export function ProjectFormDialog({
           {...register("description")}
         />
         <fieldset className="grid gap-2">
-          <legend className="text-sm font-medium text-text">Project color</legend>
+          <legend className="text-sm font-medium text-text">
+            Project color
+          </legend>
           <input type="hidden" {...register("color")} />
           <div className="flex flex-wrap gap-2">
             <button

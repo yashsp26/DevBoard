@@ -1,13 +1,16 @@
+import type { SnippetLanguage } from "../features/snippets/languages";
+
 export type SnippetProject = { id: string; name: string; color: string | null };
 
 export type Snippet = {
   id: string;
   title: string;
   description: string | null;
-  language: string;
+  language: SnippetLanguage;
   code: string;
   isFavorite: boolean;
   projectId: string | null;
+  filePath: string | null;
   project: SnippetProject | null;
   createdAt: string;
   updatedAt: string;
@@ -16,9 +19,10 @@ export type Snippet = {
 export type SnippetInput = {
   title: string;
   description?: string | null;
-  language: string;
+  language: SnippetLanguage;
   code: string;
   projectId?: string | null;
+  filePath?: string | null;
 };
 export type SnippetListParams = {
   page?: number;

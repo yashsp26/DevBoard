@@ -5,7 +5,10 @@ import {
 } from "lucide-react";
 
 import { editorOptions } from "../../features/snippets/editorOptions";
-import { languageMap } from "../../features/snippets/languages";
+import {
+  languageMap,
+  type SnippetLanguage,
+} from "../../features/snippets/languages";
 import { useTheme } from "../../context/ThemeContext";
 
 type SnippetEditorProps = {
@@ -14,7 +17,7 @@ type SnippetEditorProps = {
   error?: string;
   onChange: (value: string) => void;
   value: string;
-  language: string;
+  language: SnippetLanguage;
 };
 
 export function SnippetEditor({

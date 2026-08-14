@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -18,18 +18,25 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       />
     </noscript>
-    <title>DevBoard</title>
+    <title>DevLupo</title>
     <script>
       (() => {
         try {
-          const theme = localStorage.getItem('theme')
-          document.documentElement.dataset.theme = theme === 'dark' || theme === 'light'
-            ? theme
-            : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          const theme = localStorage.getItem("theme");
+          document.documentElement.dataset.theme =
+            theme === "dark" || theme === "light"
+              ? theme
+              : matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
         } catch {
-          document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          document.documentElement.dataset.theme = matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches
+            ? "dark"
+            : "light";
         }
-      })()
+      })();
     </script>
   </head>
   <body>

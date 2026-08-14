@@ -2,6 +2,29 @@ import { z } from "zod";
 
 const cuid = z.string().cuid();
 
+const filePathSchema = z
+  .string()
+  .trim()
+  .min(1, "File path is required for project snippets.")
+  .max(512, "File path cannot exceed 512 characters.")
+  .superRefine((value, ctx) => {
+    if (value.includes("\0")) {
+      ctx.addIssue({ code: "custom", message: "File path cannot contain null bytes." });
+    }
+
+    if (value.startsWith("/") || value.includes(":")) {
+      ctx.addIssue({ code: "custom", message: "File path must be relative to the project root." });
+    }
+
+    if (value.includes("\\")) {
+      ctx.addIssue({ code: "custom", message: "File path must use forward slashes." });
+    }
+
+    if (value.split("/").some((segment) => segment === "..")) {
+      ctx.addIssue({ code: "custom", message: "File path cannot contain ../" });
+    }
+  });
+
 export const createSnippetSchema = z.object({
   body: z.object({
     title: z
@@ -22,6 +45,16 @@ export const createSnippetSchema = z.object({
     code: z.string().trim().min(1, "Code cannot be empty."),
 
     projectId: cuid.optional().nullable(),
+
+    filePath: filePathSchema.optional().nullable(),
+  }).superRefine((data, ctx) => {
+    if (data.projectId && !data.filePath) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["filePath"],
+        message: "File path is required for project snippets.",
+      });
+    }
   }),
 
   params: z.object({}),
@@ -40,6 +73,8 @@ export const updateSnippetSchema = z.object({
     code: z.string().trim().min(1).optional(),
 
     projectId: cuid.nullable().optional(),
+
+    filePath: filePathSchema.nullable().optional(),
   }),
 
   params: z.object({

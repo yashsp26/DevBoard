@@ -117,7 +117,7 @@ export function ProjectTasksPage() {
               : unauthorized
                 ? "Sign in again to access this project."
                 : network
-                  ? "DevBoard could not reach the server. Check your connection and try again."
+                  ? "DevLupo could not reach the server. Check your connection and try again."
                   : "We couldn’t load this project. Please try again."
           }
           icon={

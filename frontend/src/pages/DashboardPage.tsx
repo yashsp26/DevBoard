@@ -405,7 +405,7 @@ export function DashboardPage() {
                   Recently Updated
                 </h2>
                 <p className="mt-1 text-sm text-muted">
-                  Your latest changes across DevBoard.
+                  Your latest changes across DevLupo.
                 </p>
               </div>
               <Card className="divide-y divide-border">
