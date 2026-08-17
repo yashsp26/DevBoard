@@ -1,105 +1,16 @@
 @config "../tailwind.config.js";
 @import "tailwindcss";
 
-/* Light is the base theme; Nord is selected with data-theme="dark". */
-:root {
-  color-scheme: light;
-  --color-background: #f7f9fc;
-  --color-surface: #ffffff;
-  --color-foreground: #1f2937;
-  --color-muted-foreground: #526173;
-  --color-border: #c7d1df;
-  --color-primary: #2f5f8f;
-  --color-primary-foreground: #ffffff;
-  --color-error: #b4233a;
-  --color-warning: #9a6700;
-  --color-success: #2f6b3c;
-  --color-info: #2e5f8f;
-  --auth-page-glow-opacity: 16%;
-  --auth-page-secondary-glow-opacity: 10%;
-  --auth-card-shadow: 0 8px 30px color-mix(in srgb, var(--color-foreground) 12%, transparent);
-}
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  /* Nord: Polar Night, Snow Storm, Frost, and Aurora. */
-  --color-background: #2E3440;
-  --color-surface: #3B4252;
-  --color-foreground: #ECEFF4;
-  --color-muted-foreground: #D8DEE9;
-  --color-border: #4C566A;
-  --color-primary: #88C0D0;
-  --color-primary-foreground: #2E3440;
-  --color-error: #BF616A;
-  --color-warning: #EBCB8B;
-  --color-success: #A3BE8C;
-  --color-info: #B48EAD;
-  --auth-page-glow-opacity: 28%;
-  --auth-page-secondary-glow-opacity: 16%;
-  --auth-card-shadow: 0 20px 52px color-mix(in srgb, #2E3440 58%, transparent);
-}
-
-@theme inline {
-  --color-background: var(--color-background);
-  --color-surface: var(--color-surface);
-  --color-foreground: var(--color-foreground);
-  --color-muted-foreground: var(--color-muted-foreground);
-  --color-border: var(--color-border);
-  --color-primary: var(--color-primary);
-  --color-primary-foreground: var(--color-primary-foreground);
-  --color-accent: var(--color-primary);
-  --color-error: var(--color-error);
-  --color-warning: var(--color-warning);
-  --color-success: var(--color-success);
-  --color-info: var(--color-info);
-  /* Compatibility aliases for existing component utilities. */
-  --color-app: var(--color-background);
-  --color-elevated: var(--color-surface);
-  --color-hover: var(--color-surface);
-  --color-text: var(--color-foreground);
-  --color-secondary: var(--color-muted-foreground);
-  --color-muted: var(--color-muted-foreground);
-  --color-danger: var(--color-error);
-  --color-accent-foreground: var(--color-primary-foreground);
-  --color-border-subtle: var(--color-border);
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-}
-
-@layer base {
-  *, ::before, ::after { border-color: var(--color-border); }
-
-  html, body, #root { min-height: 100%; }
-
-  body {
-    @apply bg-background font-sans text-foreground antialiased;
-    transition: background-color 125ms ease, color 125ms ease;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body { transition: none; }
-}
-
+/* Neumorphic light and dark themes inspired by the supplied Living Code design. */
+:root { color-scheme: light; --color-background:#cfcfcf; --color-surface:#cfcfcf; --color-foreground:#5a5a5a; --color-muted-foreground:#818181; --color-border:#cfcfcf; --color-primary:#4a90d9; --color-primary-foreground:#fff; --color-error:#ef5b4e; --color-warning:#f2a93b; --color-success:#3fcb7c; --color-info:#e38fa0; --neu-shadow-dark:#adadad; --neu-shadow-light:#f5f5f5; --neu-track:#c2c2c2; }
+:root[data-theme='dark'] { color-scheme:dark; --color-background:#454545; --color-surface:#454545; --color-foreground:#d8d8d8; --color-muted-foreground:#a7a7a7; --color-border:#454545; --color-primary:#4a90d9; --color-primary-foreground:#fff; --color-error:#ef5b4e; --color-warning:#f2a93b; --color-success:#3fcb7c; --color-info:#e38fa0; --neu-shadow-dark:#2a2a2a; --neu-shadow-light:#5e5e5e; --neu-track:#3a3a3a; }
+@theme inline { --color-background:var(--color-background); --color-surface:var(--color-surface); --color-foreground:var(--color-foreground); --color-muted-foreground:var(--color-muted-foreground); --color-border:var(--color-border); --color-primary:var(--color-primary); --color-primary-foreground:var(--color-primary-foreground); --color-accent:var(--color-primary); --color-error:var(--color-error); --color-warning:var(--color-warning); --color-success:var(--color-success); --color-info:var(--color-info); --color-app:var(--color-background); --color-elevated:var(--color-surface); --color-hover:var(--color-surface); --color-text:var(--color-foreground); --color-secondary:var(--color-muted-foreground); --color-muted:var(--color-muted-foreground); --color-danger:var(--color-error); --color-accent-foreground:var(--color-primary-foreground); --color-border-subtle:var(--color-border); --font-sans:'Inter',ui-sans-serif,system-ui,sans-serif; }
+@layer base { *,::before,::after { border-color:var(--color-border); } html,body,#root { min-height:100%; } body { @apply bg-background font-sans text-foreground antialiased; transition:background-color .4s ease,color .4s ease; } }
 @layer components {
-  .auth-page-shell {
-    background:
-      radial-gradient(circle at 68% 48%, color-mix(in srgb, var(--color-primary) var(--auth-page-glow-opacity), transparent), transparent 50%),
-      radial-gradient(circle at 12% 82%, color-mix(in srgb, var(--color-info) var(--auth-page-secondary-glow-opacity), transparent), transparent 45%),
-      var(--color-background);
-  }
-
-  .auth-brand-panel { background: color-mix(in srgb, var(--color-surface) 84%, transparent); }
-
-  .auth-form-card {
-    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-border) 72%, transparent);
-    box-shadow: var(--auth-card-shadow);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .auth-form-card input {
-    background: var(--color-background);
-    border-color: var(--color-border);
-  }
+  .auth-page-shell { background:var(--color-background); } .neu-raised { box-shadow:8px 8px 16px var(--neu-shadow-dark),-8px -8px 16px var(--neu-shadow-light); } .neu-inset { box-shadow:inset 4px 4px 8px var(--neu-shadow-dark),inset -4px -4px 8px var(--neu-shadow-light); }
+  .auth-form-card { background:var(--color-surface); border:0; box-shadow:12px 12px 24px var(--neu-shadow-dark),-12px -12px 24px var(--neu-shadow-light); } .auth-form-card input { background:var(--color-background); border-color:transparent; box-shadow:inset 3px 3px 7px var(--neu-shadow-dark),inset -3px -3px 7px var(--neu-shadow-light); }
+  .auth-illustration { color:var(--color-muted-foreground); } .auth-console { fill:var(--color-surface); filter:drop-shadow(10px 10px 12px var(--neu-shadow-dark)) drop-shadow(-10px -10px 12px var(--neu-shadow-light)); } .auth-console-sm { fill:var(--color-surface); filter:drop-shadow(4px 4px 5px var(--neu-shadow-dark)) drop-shadow(-4px -4px 5px var(--neu-shadow-light)); } .auth-track { fill:var(--neu-track); }
+  @keyframes auth-core-breathe { 0%,100% { transform:translateY(0) rotate(0); } 50% { transform:translateY(-10px) rotate(.3deg); } } @keyframes auth-float-left { 0%,100% { transform:translate(0); } 50% { transform:translate(-4px,-8px); } } @keyframes auth-float-right { 0%,100% { transform:translate(0); } 50% { transform:translate(3px,6px); } } @keyframes auth-spin { to { transform:rotate(360deg); } } @keyframes auth-particle { 0%,100% { transform:translateY(0) scale(1); opacity:.35; } 50% { transform:translateY(-16px) scale(1.2); opacity:.95; } }
+  .auth-core { animation:auth-core-breathe 8s ease-in-out infinite; transform-origin:center; } .auth-badge-left { animation:auth-float-left 6s ease-in-out infinite; } .auth-badge-right { animation:auth-float-right 7s ease-in-out infinite; } .auth-spinner { animation:auth-spin 24s linear infinite; transform-origin:center; } .auth-particle { animation:auth-particle 5s ease-in-out infinite; } .auth-particle-delay { animation-delay:1.2s; animation-duration:6.5s; }
 }
+@media (prefers-reduced-motion:reduce) { body { transition:none; } .auth-core,.auth-badge-left,.auth-badge-right,.auth-spinner,.auth-particle { animation:none; } }

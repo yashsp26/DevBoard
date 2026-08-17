@@ -14,8 +14,8 @@ type ButtonProps = HTMLMotionProps<"button"> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-accent-foreground shadow-sm shadow-primary/20 hover:bg-primary/90",
-  secondary: "bg-elevated text-text ring-1 ring-border hover:bg-hover",
+    "bg-primary text-accent-foreground shadow-sm shadow-primary/30 hover:bg-primary/90",
+  secondary: "neu-raised bg-elevated text-text ring-0 hover:bg-hover",
   ghost: "text-muted hover:bg-elevated hover:text-text",
   danger:
     "bg-danger text-accent-foreground shadow-sm shadow-danger/20 hover:bg-danger/90",

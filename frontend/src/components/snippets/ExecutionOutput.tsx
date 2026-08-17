@@ -14,11 +14,15 @@ import type { ExecutionPanelState } from "../../types/execution";
 
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
+import { Textarea } from "../ui/Textarea";
 
 type ExecutionOutputProps = {
   state: ExecutionPanelState;
   isRunning: boolean;
   onRun: () => void;
+  runLabel?: string;
+  stdin: string;
+  onStdinChange: (value: string) => void;
 };
 
 const statusDetails = {
@@ -99,6 +103,9 @@ export function ExecutionOutput({
   state,
   isRunning,
   onRun,
+  runLabel = "Run",
+  stdin,
+  onStdinChange,
 }: ExecutionOutputProps) {
   const details = statusDetails[state.status];
   // const Icon = details.icon;
@@ -151,7 +158,7 @@ export function ExecutionOutput({
               />
             )}
 
-            {isRunning ? "Running..." : "Run"}
+            {isRunning ? "Running..." : runLabel}
           </Button>
 
           <IconButton
@@ -168,6 +175,35 @@ export function ExecutionOutput({
       {/* ------------------------------------------------------- */}
 
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+        {/* --------------------------------------------------- */}
+        {/* Input */}
+        {/* --------------------------------------------------- */}
+
+        <div className="mb-5">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-sm font-medium text-text">
+              Input (stdin)
+            </p>
+
+            <IconButton
+              label="Copy stdin"
+              title="Copy stdin"
+              onClick={() => copyOutput(stdin)}
+            >
+              <Copy className="size-4" />
+            </IconButton>
+          </div>
+
+          <Textarea
+            className="min-h-28 font-mono text-xs leading-5"
+            disabled={isRunning}
+            label=""
+            onChange={(event) => onStdinChange(event.target.value)}
+            placeholder="Enter input for your program..."
+            value={stdin}
+          />
+        </div>
+
         {/* --------------------------------------------------- */}
         {/* Status */}
         {/* --------------------------------------------------- */}
@@ -365,28 +401,6 @@ export function ExecutionOutput({
             </div>
           </dl>
         )}
-
-        {/* --------------------------------------------------- */}
-        {/* Input */}
-        {/* --------------------------------------------------- */}
-
-        <div className="mt-5">
-          <div className="mb-2 flex items-center justify-between">
-            <p className="text-sm font-medium text-text">
-              Input (stdin)
-            </p>
-
-            <IconButton
-              label="Copy stdin"
-              title="Copy stdin"
-              onClick={() => copyOutput("")}
-            >
-              <Copy className="size-4" />
-            </IconButton>
-          </div>
-
-          <ConsoleText>-</ConsoleText>
-        </div>
 
         {/* --------------------------------------------------- */}
         {/* Run history */}

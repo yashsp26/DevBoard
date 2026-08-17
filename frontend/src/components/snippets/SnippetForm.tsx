@@ -1,4 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -60,7 +61,7 @@ export function SnippetForm({
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     register,
     watch,
     handleSubmit,
@@ -78,7 +79,11 @@ export function SnippetForm({
 
   const language = watch("language");
   const projectId = watch("projectId");
+  const filePath = watch("filePath");
   const execution = useRunExecution();
+  const [stdin, setStdin] = useState("");
+  const isProjectSnippet = Boolean(projectId);
+  const isRunnableLanguage = language === "javascript" || language === "typescript";
 
   return (
     <form
@@ -162,13 +167,15 @@ export function SnippetForm({
           </div>
 
           {projectId && (
+            
             <Input
               disabled={isSubmitting}
               error={errors.filePath?.message}
               helperText="Path relative to the project root."
               label="File path"
-              placeholder="src/controllers/user.controller.ts"
+              placeholder="E.g.src/controllers/my.controller.ts"
               {...register("filePath")}
+              
             />
           )}
 
@@ -213,11 +220,32 @@ export function SnippetForm({
                 return;
               }
 
-              execution.run({
-                language:
-                  language === "typescript"
-                    ? "typescript"
-                    : "javascript",
+              if (!isRunnableLanguage) {
+                toast.error("Only JavaScript and TypeScript can be run right now.");
+                return;
+              }
+
+              if (projectId) {
+                const entryPoint = filePath?.trim();
+                if (!entryPoint) {
+                  toast.error("Project snippets need a file path before they can be run.");
+                  return;
+                }
+
+                if (isDirty) {
+                  toast.info("Project execution uses the saved project files.");
+                }
+
+                execution.runProject(projectId, {
+                  entryPoint,
+                  stdin,
+                  timeoutMs: 10000,
+                });
+                return;
+              }
+
+              execution.runStandalone({
+                language,
                 framework: "node",
                 entryPoint: "index.js",
                 files: [
@@ -226,10 +254,13 @@ export function SnippetForm({
                     content: field.value,
                   },
                 ],
-                stdin: "",
+                stdin,
                 timeoutMs: 10000,
               });
             }}
+            runLabel={isProjectSnippet ? "Run Project" : "Run"}
+            stdin={stdin}
+            onStdinChange={setStdin}
             state={execution.state}
           />
         )}

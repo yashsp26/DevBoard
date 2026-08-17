@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { mkdtemp, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, writeFile, mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import ts from "typescript";
@@ -40,12 +40,9 @@ export class NodeRunner extends Runner {
        */
       temporaryDirectory = await mkdtemp(path.join(tmpdir(), "DevLupo-run-"));
 
-      /*
-       * Phase 1 supports exactly one file.
-       */
-      const file = request.files?.[0];
+      const files = request.files || [];
 
-      if (!file) {
+      if (!files.length) {
         return createExecutionResult({
           status: EXECUTION_STATUS.FAILED,
           error: {
@@ -58,28 +55,36 @@ export class NodeRunner extends Runner {
 
       const isTypeScript = request.language === EXECUTION_LANGUAGES.TYPESCRIPT;
 
-      /*
-       * TypeScript always starts as index.ts and emits index.js. JavaScript
-       * retains the existing request-controlled entry point behavior.
-       */
+      const file = files[0];
       const entryPoint = isTypeScript
-        ? "index.ts"
+        ? (files.length === 1 ? "index.ts" : request.entryPoint)
         : request.entryPoint || file.path;
-
-      const entryPath = path.join(temporaryDirectory, entryPoint);
-
-      /*
-       * Prevent paths such as:
-       *
-       * ../../some-file
-       *
-       * from escaping the temporary directory.
-       */
-      const resolvedEntryPath = path.resolve(entryPath);
+      // Preserve the original single-file TypeScript contract, which always
+      // compiles the submitted source as index.ts regardless of its request path.
+      const filesToWrite = isTypeScript && files.length === 1
+        ? [{ ...file, path: "index.ts" }]
+        : files;
 
       const resolvedDirectory = path.resolve(temporaryDirectory);
 
-      if (!resolvedEntryPath.startsWith(resolvedDirectory + path.sep)) {
+      const resolveProjectPath = (filePath) => {
+        if (
+          typeof filePath !== "string" ||
+          !filePath ||
+          filePath.includes("\0") ||
+          path.isAbsolute(filePath) ||
+          filePath.includes("\\") ||
+          filePath.split("/").some((segment) => !segment || segment === "." || segment === "..")
+        ) {
+          return null;
+        }
+        const resolvedPath = path.resolve(resolvedDirectory, filePath);
+        return resolvedPath.startsWith(resolvedDirectory + path.sep) ? resolvedPath : null;
+      };
+
+      const resolvedEntryPath = resolveProjectPath(entryPoint);
+
+      if (!resolvedEntryPath || !filesToWrite.some((item) => item.path === entryPoint)) {
         return createExecutionResult({
           status: EXECUTION_STATUS.FAILED,
           error: {
@@ -90,7 +95,18 @@ export class NodeRunner extends Runner {
         });
       }
 
-      await writeFile(resolvedEntryPath, file.content, "utf8");
+      for (const sourceFile of filesToWrite) {
+        const targetPath = resolveProjectPath(sourceFile.path);
+        if (!targetPath) {
+          return createExecutionResult({
+            status: EXECUTION_STATUS.FAILED,
+            error: { message: "Invalid project file path.", code: "INVALID_FILE_PATH" },
+            durationMs: Date.now() - startTime,
+          });
+        }
+        await mkdir(path.dirname(targetPath), { recursive: true });
+        await writeFile(targetPath, sourceFile.content, "utf8");
+      }
 
       let executablePath = resolvedEntryPath;
 
@@ -115,6 +131,8 @@ export class NodeRunner extends Runner {
           skipLibCheck: true,
           sourceMap: false,
           noEmitOnError: true,
+          // Keep emitted paths aligned with the reconstructed project tree.
+          rootDir: temporaryDirectory,
           outDir: temporaryDirectory,
         };
         const program = ts.createProgram([resolvedEntryPath], compilerOptions);
@@ -151,7 +169,10 @@ export class NodeRunner extends Runner {
           });
         }
 
-        executablePath = path.join(temporaryDirectory, "index.js");
+        executablePath = path.join(
+          temporaryDirectory,
+          entryPoint.replace(/\.(?:ts|tsx)$/, ".js"),
+        );
       }
 
       /*

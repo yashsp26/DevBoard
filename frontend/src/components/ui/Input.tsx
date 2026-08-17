@@ -20,7 +20,7 @@ export function Input({ className, error, helperText, id, label, ...props }: Inp
         aria-describedby={error ? errorId : undefined}
         aria-invalid={Boolean(error)}
         className={cn(
-          'min-h-10 rounded-lg border bg-app px-3 text-sm text-text outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20',
+          'min-h-10 rounded-lg border bg-app px-3 text-sm text-text outline-none transition-colors placeholder:text-muted/40 focus:border-primary focus:ring-2 focus:ring-primary/20',
           error ? 'border-danger' : 'border-border',
           className,
         )}
