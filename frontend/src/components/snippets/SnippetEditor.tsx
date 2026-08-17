@@ -45,7 +45,7 @@ export function SnippetEditor({
 
         <div className="flex items-center gap-2">
           <button
-            className="flex h-8 items-center gap-2 rounded-lg border border-border bg-app px-3 text-xs font-medium text-text transition hover:bg-elevated"
+            className="neu-raised flex h-8 items-center gap-2 rounded-lg border border-transparent bg-elevated px-3 text-xs font-medium text-text transition hover:-translate-y-0.5"
             type="button"
           >
             {theme === "dark" ? "Dark" : "Light"}
@@ -55,7 +55,7 @@ export function SnippetEditor({
 
           <button
             aria-label="Expand editor"
-            className="flex size-8 items-center justify-center rounded-lg border border-border bg-app text-muted transition hover:bg-elevated hover:text-text"
+            className="neu-raised flex size-8 items-center justify-center rounded-lg border border-transparent bg-elevated text-muted transition hover:-translate-y-0.5 hover:text-text"
             title="Expand editor"
             type="button"
           >
@@ -65,7 +65,7 @@ export function SnippetEditor({
       </div>
 
       {/* Monaco */}
-      <div className="min-h-0 overflow-hidden rounded-lg border border-border bg-app focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+      <div className="neu-raised min-h-0 overflow-hidden rounded-xl border border-border/70 bg-[var(--color-surface-secondary)] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
         <Editor
           height="100%"
           language={languageMap[language] ?? language}

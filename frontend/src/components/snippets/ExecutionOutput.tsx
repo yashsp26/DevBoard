@@ -63,13 +63,9 @@ const statusDetails = {
   },
 };
 
-function ConsoleText({
-  children,
-}: {
-  children: string;
-}) {
+function ConsoleText({ children }: { children: string }) {
   return (
-    <pre className="overflow-x-auto whitespace-pre-wrap wrap-break-words rounded-lg border border-border bg-app px-4 py-3 font-mono text-xs leading-5 text-text">
+    <pre className="execution-console overflow-x-auto whitespace-pre-wrap wrap-break-words rounded-xl border border-transparent bg-(--color-surface-secondary) px-4 py-3 font-mono text-xs leading-5 text-text">
       {children}
     </pre>
   );
@@ -89,7 +85,7 @@ function IconButton({
   return (
     <button
       aria-label={label}
-      className="flex size-9 items-center justify-center rounded-lg text-muted transition hover:bg-app hover:text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
+      className="neu-raised flex size-9 items-center justify-center rounded-xl text-muted transition hover:-translate-y-0.5 hover:shadow-(--shadow-elevation-3) hover:text-text active:translate-y-0 active:shadow-(--shadow-inset) focus:outline-none focus:ring-2 focus:ring-primary/40"
       onClick={onClick}
       title={title ?? label}
       type="button"
@@ -110,8 +106,7 @@ export function ExecutionOutput({
   const details = statusDetails[state.status];
   // const Icon = details.icon;
 
-  const result =
-    "result" in state ? state.result : undefined;
+  const result = "result" in state ? state.result : undefined;
 
   const message =
     state.status === "api-error"
@@ -127,21 +122,16 @@ export function ExecutionOutput({
   };
 
   return (
-    <section className="flex min-h-0 min-w-0 flex-col bg-elevated">
+    <section className="execution-panel flex min-h-0 min-w-0 flex-col bg-elevated">
       {/* ------------------------------------------------------- */}
       {/* Execution header */}
       {/* ------------------------------------------------------- */}
 
       <div className="flex shrink-0 items-center justify-between border-b border-border-subtle px-5 py-4">
         <div className="flex items-center gap-2.5">
-          <Play
-            aria-hidden="true"
-            className="size-5 text-text"
-          />
+          <Play aria-hidden="true" className="size-5 text-text" />
 
-          <h2 className="text-lg font-semibold text-text">
-            Execution
-          </h2>
+          <h2 className="text-lg font-semibold text-text">Execution</h2>
         </div>
 
         <div className="flex items-center gap-2">
@@ -151,20 +141,12 @@ export function ExecutionOutput({
             onClick={onRun}
             type="button"
           >
-            {!isRunning && (
-              <Play
-                aria-hidden="true"
-                className="size-4"
-              />
-            )}
+            {!isRunning && <Play aria-hidden="true" className="size-4" />}
 
             {isRunning ? "Running..." : runLabel}
           </Button>
 
-          <IconButton
-            label="Execution settings"
-            title="Execution settings"
-          >
+          <IconButton label="Execution settings" title="Execution settings">
             <Settings className="size-4" />
           </IconButton>
         </div>
@@ -181,9 +163,7 @@ export function ExecutionOutput({
 
         <div className="mb-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-sm font-medium text-text">
-              Input (stdin)
-            </p>
+            <p className="text-sm font-medium text-text">Input (stdin)</p>
 
             <IconButton
               label="Copy stdin"
@@ -211,9 +191,7 @@ export function ExecutionOutput({
         {state.status !== "idle" && (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Badge variant={details.variant}>
-                {details.label}
-              </Badge>
+              <Badge variant={details.variant}>{details.label}</Badge>
 
               {result?.durationMs != null && (
                 <span className="text-xs text-muted">
@@ -223,14 +201,9 @@ export function ExecutionOutput({
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs text-muted">
-                Today, 11:42 AM
-              </span>
+              <span className="text-xs text-muted">Today, 11:42 AM</span>
 
-              <IconButton
-                label="Delete execution"
-                title="Delete execution"
-              >
+              <IconButton label="Delete execution" title="Delete execution">
                 <Trash2 className="size-4" />
               </IconButton>
             </div>
@@ -289,27 +262,21 @@ export function ExecutionOutput({
           <div className="mt-5">
             <div className="mb-2 flex items-center justify-between">
               <p className="text-sm font-medium text-danger">
-                {state.status === "timeout"
-                  ? "Execution timed out"
-                  : "Error"}
+                {state.status === "timeout" ? "Execution timed out" : "Error"}
               </p>
 
               {message && (
                 <IconButton
                   label="Copy error"
                   title="Copy error"
-                  onClick={() =>
-                    copyOutput(message)
-                  }
+                  onClick={() => copyOutput(message)}
                 >
                   <Copy className="size-4" />
                 </IconButton>
               )}
             </div>
 
-            {message && (
-              <ConsoleText>{message}</ConsoleText>
-            )}
+            {message && <ConsoleText>{message}</ConsoleText>}
           </div>
         )}
 
@@ -320,26 +287,20 @@ export function ExecutionOutput({
         {state.status === "completed" && (
           <div className="mt-5">
             <div className="mb-2 flex items-center justify-between">
-              <p className="text-sm font-medium text-text">
-                Output
-              </p>
+              <p className="text-sm font-medium text-text">Output</p>
 
               {result?.stdout && (
                 <IconButton
                   label="Copy output"
                   title="Copy output"
-                  onClick={() =>
-                    copyOutput(result.stdout)
-                  }
+                  onClick={() => copyOutput(result.stdout)}
                 >
                   <Copy className="size-4" />
                 </IconButton>
               )}
             </div>
 
-            <ConsoleText>
-              {result?.stdout?.trim() || "No output."}
-            </ConsoleText>
+            <ConsoleText>{result?.stdout?.trim() || "No output."}</ConsoleText>
           </div>
         )}
 
@@ -353,24 +314,18 @@ export function ExecutionOutput({
           result?.stdout && (
             <div className="mt-5">
               <div className="mb-2 flex items-center justify-between">
-                <p className="text-sm font-medium text-text">
-                  Output
-                </p>
+                <p className="text-sm font-medium text-text">Output</p>
 
                 <IconButton
                   label="Copy output"
                   title="Copy output"
-                  onClick={() =>
-                    copyOutput(result.stdout)
-                  }
+                  onClick={() => copyOutput(result.stdout)}
                 >
                   <Copy className="size-4" />
                 </IconButton>
               </div>
 
-              <ConsoleText>
-                {result.stdout}
-              </ConsoleText>
+              <ConsoleText>{result.stdout}</ConsoleText>
             </div>
           )}
 
@@ -381,9 +336,7 @@ export function ExecutionOutput({
         {result && (
           <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
             <div className="rounded-lg bg-app px-4 py-3">
-              <dt className="text-xs text-muted">
-                Exit code
-              </dt>
+              <dt className="text-xs text-muted">Exit code</dt>
 
               <dd className="mt-1 text-sm font-semibold text-text">
                 {result.exitCode ?? "-"}
@@ -391,9 +344,7 @@ export function ExecutionOutput({
             </div>
 
             <div className="rounded-lg bg-app px-4 py-3">
-              <dt className="text-xs text-muted">
-                Duration
-              </dt>
+              <dt className="text-xs text-muted">Duration</dt>
 
               <dd className="mt-1 text-sm font-semibold text-text">
                 {result.durationMs}ms
@@ -414,9 +365,7 @@ export function ExecutionOutput({
             <div className="flex items-center gap-3">
               <Clock3 className="size-4 text-muted" />
 
-              <p className="text-sm font-medium text-text">
-                Run history
-              </p>
+              <p className="text-sm font-medium text-text">Run history</p>
 
               <span className="rounded-full bg-elevated px-2 py-0.5 text-xs text-muted">
                 3

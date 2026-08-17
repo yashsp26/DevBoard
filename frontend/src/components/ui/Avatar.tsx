@@ -28,7 +28,7 @@ export function Avatar({ alt, className, size = 'md', src }: AvatarProps) {
     return (
       <img
         alt={alt}
-        className={cn('rounded-full border border-border object-cover', sizeClasses[size], className)}
+        className={cn('neu-raised rounded-full border border-border/70 object-cover', sizeClasses[size], className)}
         loading="lazy"
         onError={() => setHasImage(false)}
         src={src}
@@ -39,7 +39,7 @@ export function Avatar({ alt, className, size = 'md', src }: AvatarProps) {
   return (
     <span
       aria-label={alt}
-      className={cn('inline-flex items-center justify-center rounded-full border border-border-subtle bg-elevated text-muted', sizeClasses[size], className)}
+      className={cn('neu-raised inline-flex items-center justify-center rounded-full border border-border/70 bg-elevated text-muted', sizeClasses[size], className)}
       role="img"
     >
       <ImageIcon aria-hidden="true" className="size-1/2" />

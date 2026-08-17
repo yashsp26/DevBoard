@@ -33,7 +33,7 @@ export function DashboardLayout() {
   return (
     <div className="min-h-screen bg-background lg:flex">
       <Sidebar items={navigationItems} />
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1 lg:p-4">
         <Navbar
           actions={
             <>

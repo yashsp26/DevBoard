@@ -7,8 +7,13 @@ import { Toaster } from 'sonner'
 import { queryClient } from './lib/queryClient'
 import { AppBootstrap } from './routes/AppBootstrap'
 import { router } from './routes/router'
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeProvider, useTheme } from './context/ThemeContext'
 import './style.css'
+
+function AppToaster() {
+  const { theme } = useTheme()
+  return <Toaster richColors theme={theme} toastOptions={{ className: 'app-toast' }} />
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,9 +22,9 @@ createRoot(document.getElementById('root')!).render(
         <AppBootstrap>
           <RouterProvider router={router} />
         </AppBootstrap>
+        <AppToaster />
       </ThemeProvider>
       {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
-      <Toaster richColors theme="system" />
     </QueryClientProvider>
   </StrictMode>,
 )

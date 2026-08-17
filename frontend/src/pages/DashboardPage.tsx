@@ -91,7 +91,7 @@ export function DashboardPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
+    <main className="dashboard-page mx-auto w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
       <PageHeader
         description="Your development workspace at a glance."
         title="Dashboard"

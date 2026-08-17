@@ -8,7 +8,7 @@ export function Card({
   return (
     <section
       className={cn(
-        "neu-raised rounded-xl border-0 bg-elevated",
+        "neu-raised rounded-2xl border border-border/70 bg-elevated",
         className,
       )}
       {...props}

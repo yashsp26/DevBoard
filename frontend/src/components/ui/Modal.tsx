@@ -95,7 +95,7 @@ export function Modal({
       animate={{ opacity: 1 }}
       aria-labelledby={titleId}
       aria-modal="true"
-      className="fixed inset-0 z-50 grid place-items-center bg-black/55 p-5 backdrop-blur-sm"
+      className="fixed inset-0 z-50 grid place-items-center bg-[var(--color-overlay)] p-5 backdrop-blur-md"
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       onMouseDown={(event) => {
@@ -113,7 +113,7 @@ export function Modal({
           scale: 1,
           y: 0,
         }}
-        className={`flex max-h-[calc(100vh-2.5rem)] flex-col overflow-hidden rounded-xl border border-border-subtle bg-elevated shadow-2xl ${
+        className={`neu-raised-lg flex max-h-[calc(100vh-2.5rem)] flex-col overflow-hidden rounded-2xl border border-border/70 bg-elevated ${
           size === "wide"
             ? "h-[calc(100vh-2.5rem)] w-[calc(100vw-2.5rem)]"
             : size === "compact"
@@ -154,7 +154,7 @@ export function Modal({
 
           <button
             aria-label="Close dialog"
-            className="ml-4 flex size-10 shrink-0 items-center justify-center rounded-lg text-muted transition hover:bg-app hover:text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="neu-raised ml-4 flex size-10 shrink-0 items-center justify-center rounded-xl text-muted transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevation-3)] hover:text-text active:translate-y-0 active:shadow-[var(--shadow-inset)] focus:outline-none focus:ring-2 focus:ring-primary/40"
             onClick={onClose}
             type="button"
           >
