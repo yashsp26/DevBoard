@@ -1,4 +1,5 @@
 import type { ProjectSortField, ProjectStatus, SortOrder } from '../../types/project'
+import { Select } from '../../components/ui/Select'
 
 type ProjectFiltersProps = {
   favorite: boolean | undefined
@@ -11,34 +12,13 @@ type ProjectFiltersProps = {
   status: ProjectStatus | undefined
 }
 
-const selectClassName = 'min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20'
-
 export function ProjectFilters({ favorite, onFavoriteChange, onOrderChange, onSortChange, onStatusChange, order, sort, status }: ProjectFiltersProps) {
   return (
     <div className="flex flex-wrap gap-3">
-      <label className="sr-only" htmlFor="project-status">Status</label>
-      <select className={selectClassName} id="project-status" onChange={(event) => onStatusChange(event.target.value ? event.target.value as ProjectStatus : undefined)} value={status ?? ''}>
-        <option value="">All statuses</option>
-        <option value="ACTIVE">Active</option>
-        <option value="ARCHIVED">Archived</option>
-      </select>
-      <label className="sr-only" htmlFor="project-favorite">Favorite</label>
-      <select className={selectClassName} id="project-favorite" onChange={(event) => onFavoriteChange(event.target.value === '' ? undefined : event.target.value === 'true')} value={favorite === undefined ? '' : String(favorite)}>
-        <option value="">All projects</option>
-        <option value="true">Favorites</option>
-        <option value="false">Not favorites</option>
-      </select>
-      <label className="sr-only" htmlFor="project-sort">Sort projects</label>
-      <select className={selectClassName} id="project-sort" onChange={(event) => onSortChange(event.target.value as ProjectSortField)} value={sort}>
-        <option value="updatedAt">Last updated</option>
-        <option value="createdAt">Date created</option>
-        <option value="name">Name</option>
-      </select>
-      <label className="sr-only" htmlFor="project-order">Sort direction</label>
-      <select className={selectClassName} id="project-order" onChange={(event) => onOrderChange(event.target.value as SortOrder)} value={order}>
-        <option value="desc">Descending</option>
-        <option value="asc">Ascending</option>
-      </select>
+      <Select aria-label="Status" onValueChange={(value) => onStatusChange(value ? value as ProjectStatus : undefined)} options={[{ label: 'All statuses', value: '' }, { label: 'Active', value: 'ACTIVE' }, { label: 'Archived', value: 'ARCHIVED' }]} value={status ?? ''} />
+      <Select aria-label="Favorite" onValueChange={(value) => onFavoriteChange(value === '' ? undefined : value === 'true')} options={[{ label: 'All projects', value: '' }, { label: 'Favorites', value: 'true' }, { label: 'Not favorites', value: 'false' }]} value={favorite === undefined ? '' : String(favorite)} />
+      <Select aria-label="Sort projects" onValueChange={(value) => onSortChange(value as ProjectSortField)} options={[{ label: 'Last updated', value: 'updatedAt' }, { label: 'Date created', value: 'createdAt' }, { label: 'Name', value: 'name' }]} value={sort} />
+      <Select aria-label="Sort direction" onValueChange={(value) => onOrderChange(value as SortOrder)} options={[{ label: 'Descending', value: 'desc' }, { label: 'Ascending', value: 'asc' }]} value={order} />
     </div>
   )
 }

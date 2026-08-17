@@ -9,6 +9,7 @@ import { NoteModal } from "../components/notes/NoteModal";
 import { EmptyState } from "../components/common/EmptyState";
 import { PageHeader } from "../components/common/PageHeader";
 import { Button } from "../components/ui/Button";
+import { Select } from "../components/ui/Select";
 import { useNotes } from "../hooks/notes/useNotes";
 import { useDebouncedValue } from "../hooks/useDebouncedValue";
 import { useProjects } from "../services/useProjects";
@@ -100,40 +101,9 @@ export function NotesPage() {
           />
         </label>
         <div className="flex flex-wrap gap-3">
-          <select
-            aria-label="Filter by project"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) =>
-              update({ projectId: event.target.value || undefined })
-            }
-            value={projectId ?? ""}
-          >
-            <option value="">All Projects</option>
-            {projects?.projects.map((project) => (
-              <option key={project.id} value={project.id}>
-                {project.name}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label="Sort notes"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => update({ sort: event.target.value })}
-            value={sort}
-          >
-            <option value="updatedAt">Last updated</option>
-            <option value="createdAt">Date created</option>
-            <option value="title">Title</option>
-          </select>
-          <select
-            aria-label="Sort order"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => update({ order: event.target.value })}
-            value={order}
-          >
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
+          <Select aria-label="Filter by project" onValueChange={(value) => update({ projectId: (value as string) || undefined })} options={[{ label: "All Projects", value: "" }, ...(projects?.projects.map((project) => ({ label: project.name, value: project.id })) ?? [])]} value={projectId ?? ""} />
+          <Select aria-label="Sort notes" onValueChange={(value) => update({ sort: value as string })} options={[{ label: "Last updated", value: "updatedAt" }, { label: "Date created", value: "createdAt" }, { label: "Title", value: "title" }]} value={sort} />
+          <Select aria-label="Sort order" onValueChange={(value) => update({ order: value as string })} options={[{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }]} value={order} />
         </div>
       </section>
       {isLoading ? (

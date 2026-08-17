@@ -16,6 +16,7 @@ import { useSearch } from "../../services/useSearch";
 import type { SearchResult, SearchType } from "../../types/search";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
+import { Select } from "../ui/Select";
 import { Spinner } from "../ui/Spinner";
 
 const groups: Array<{
@@ -142,19 +143,14 @@ export function GlobalSearch() {
           className={`neu-raised-lg absolute z-50 mt-2 overflow-hidden rounded-2xl border border-border/70 bg-elevated ${mobile ? "right-0 w-[min(22rem,calc(100vw-2rem))]" : "left-0 w-96"}`}
         >
           <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2">
-            <span className="sr-only">Filter search results</span>
-            <select
+            <Select
               aria-label="Filter search results"
-              className="neu-inset min-h-8 rounded-lg border border-transparent bg-surface-input px-2 text-xs text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-              onChange={(event) => setType(event.target.value as SearchType)}
+              className="w-32"
+              onValueChange={(value) => setType(value as SearchType)}
+              options={filterOptions}
+              size="sm"
               value={type}
-            >
-              {filterOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            />
             {type === "all" && data && (
               <div className="flex flex-wrap justify-end gap-x-2 text-xs text-muted">
                 <span>Projects {data.counts.projects}</span>
