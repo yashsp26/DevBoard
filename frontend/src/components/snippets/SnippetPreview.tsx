@@ -15,7 +15,7 @@ export function SnippetPreview({
 }) {
   const { theme } = useTheme();
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-app">
+    <div className="neu-inset overflow-hidden rounded-xl border border-transparent bg-[var(--color-surface-input)]">
       <Editor
         height="360px"
         language={languageMap[language] ?? language}

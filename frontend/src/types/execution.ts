@@ -21,6 +21,12 @@ export type RunCodeRequest = {
   timeoutMs?: number;
 };
 
+export type RunProjectRequest = {
+  entryPoint?: string;
+  stdin?: string;
+  timeoutMs?: number;
+};
+
 export type ExecutionError = {
   message: string;
   code: string | number | null;

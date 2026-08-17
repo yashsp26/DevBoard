@@ -57,7 +57,7 @@ export function Dropdown({ align = 'right', footer, items, label, triggerContent
         aria-controls={menuId}
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        className="inline-flex min-h-10 items-center gap-2 rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="neu-raised inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-muted transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevation-3)] hover:text-text active:translate-y-0 active:shadow-[var(--shadow-inset)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
         onClick={() => setIsOpen((open) => !open)}
         type="button"
       >
@@ -69,7 +69,7 @@ export function Dropdown({ align = 'right', footer, items, label, triggerContent
           <motion.div
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className={cn(
-              'absolute z-40 mt-2 min-w-44 rounded-xl border border-border-subtle bg-elevated p-1 shadow-xl',
+              'neu-raised-lg absolute z-40 mt-2 min-w-44 rounded-2xl border border-border/70 bg-elevated p-1.5',
               align === 'right' ? 'right-0' : 'left-0',
             )}
             exit={{ opacity: 0, scale: 0.98, y: -4 }}
@@ -81,7 +81,7 @@ export function Dropdown({ align = 'right', footer, items, label, triggerContent
           >
             {items.map((item) => (
               <button
-                className="flex w-full rounded-lg px-3 py-2 text-left text-sm text-muted transition-colors hover:bg-hover hover:text-text focus-visible:outline-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex w-full rounded-xl px-3 py-2 text-left text-sm text-muted transition-colors hover:bg-primary/12 hover:text-text focus-visible:outline-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={item.disabled}
                 key={item.label}
                 onClick={() => {

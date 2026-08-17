@@ -57,7 +57,9 @@ export function ProjectCard({
     <Card
       className={cn(
         "flex min-w-0 flex-col p-5 transition-all",
-        isArchived ? "bg-app opacity-75 hover:opacity-100" : "hover:shadow-md",
+        isArchived
+          ? "bg-app opacity-75 hover:opacity-100"
+          : "hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevation-3)]",
       )}
     >
       <div className="flex items-start justify-between gap-4">

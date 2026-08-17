@@ -101,7 +101,7 @@ export function GlobalSearch() {
       />
       <input
         aria-label="Search DevLupo"
-        className="min-h-10 w-full rounded-lg border border-border bg-app py-2 pl-9 pr-9 text-sm text-text outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20"
+        className="neu-inset min-h-10 w-full rounded-xl border border-transparent bg-surface-input py-2 pl-9 pr-9 text-sm text-text outline-none transition placeholder:text-muted/65 focus:border-primary focus:ring-2 focus:ring-primary/25"
         onChange={(event) => setQuery(event.target.value)}
         onFocus={() => setIsOpen(true)}
         onKeyDown={(event) => {
@@ -139,13 +139,13 @@ export function GlobalSearch() {
       )}
       {showResults && (
         <div
-          className={`absolute z-50 mt-2 overflow-hidden rounded-xl border border-border bg-elevated shadow-xl ${mobile ? "right-0 w-[min(22rem,calc(100vw-2rem))]" : "left-0 w-96"}`}
+          className={`neu-raised-lg absolute z-50 mt-2 overflow-hidden rounded-2xl border border-border/70 bg-elevated ${mobile ? "right-0 w-[min(22rem,calc(100vw-2rem))]" : "left-0 w-96"}`}
         >
           <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2">
             <span className="sr-only">Filter search results</span>
             <select
               aria-label="Filter search results"
-              className="min-h-8 rounded-md border border-border bg-app px-2 text-xs text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="neu-inset min-h-8 rounded-lg border border-transparent bg-surface-input px-2 text-xs text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               onChange={(event) => setType(event.target.value as SearchType)}
               value={type}
             >
@@ -191,7 +191,7 @@ export function GlobalSearch() {
                       return (
                         <button
                           aria-selected={highlightedIndex === resultIndex}
-                          className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-primary ${highlightedIndex === resultIndex ? "bg-app" : "hover:bg-app"}`}
+                          className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-primary ${highlightedIndex === resultIndex ? "bg-primary/15" : "hover:bg-primary/8"}`}
                           key={result.id}
                           onMouseDown={(event) => event.preventDefault()}
                           onClick={() => openResult(result)}

@@ -51,3 +51,21 @@ export const runCodeSchema = z.object({
 
   query: z.object({}),
 });
+
+export const runProjectSchema = z.object({
+  body: z.object({
+    entryPoint: z.string().trim().min(1, "Entry point cannot be empty.").optional(),
+    stdin: z.string().optional().default(""),
+    timeoutMs: z
+      .number()
+      .int()
+      .min(1000, "Minimum timeout is 1 second.")
+      .max(30000, "Maximum timeout is 30 seconds.")
+      .optional()
+      .default(10000),
+  }),
+  params: z.object({
+    projectId: z.string().cuid(),
+  }),
+  query: z.object({}),
+});

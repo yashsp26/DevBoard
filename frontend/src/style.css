@@ -1,61 +1,254 @@
 @config "../tailwind.config.js";
 @import "tailwindcss";
 
-/* Light is the base theme; Nord is selected with data-theme="dark". */
+/* Neumorphic light and dark themes inspired by the supplied Living Code design. */
 :root {
   color-scheme: light;
-  --color-background: #f7f9fc;
-  --color-surface: #ffffff;
-  --color-foreground: #1f2937;
-  --color-muted-foreground: #526173;
-  --color-border: #c7d1df;
-  --color-primary: #2f5f8f;
-  --color-primary-foreground: #ffffff;
-  --color-error: #b4233a;
-  --color-warning: #9a6700;
-  --color-success: #2f6b3c;
-  --color-info: #2e5f8f;
-  --auth-page-glow-opacity: 16%;
-  --auth-page-secondary-glow-opacity: 10%;
-  --auth-card-shadow: 0 8px 30px color-mix(in srgb, var(--color-foreground) 12%, transparent);
+
+  /*
+   * Surfaces
+   *
+   * Previously every layer sat within a ~9-point lightness band
+   * (86%–95%), so cards, hover states, inputs and borders were nearly
+   * indistinguishable from the page and from each other. Spread to a
+   * ~19-point band, same warm cream hue family, so each layer reads
+   * as a distinct step: background (floor) < surface-input/secondary
+   * (recessed) < surface (card) < surface-raised (most prominent).
+   */
+  --color-background: #ece6dc;
+  --color-surface: #f8f4ec;
+  --color-surface-raised: #fefcf9;
+  --color-surface-secondary: #e0d8c9;
+  --color-surface-input: #e6ded0;
+
+  /* Text */
+  --color-foreground: #383532;
+  --color-muted-foreground: #756f68;
+
+  /* Borders */
+  --color-border: #d4c7b2;
+
+  /* Accent */
+  --color-primary: #e8892d;
+  --color-primary-hover: #d8781e;
+  --color-primary-soft: #f8d6b7;
+  --color-primary-foreground: #fffaf5;
+
+  /* Status */
+  --color-error: #cd574c;
+  --color-warning: #c88b27;
+  --color-success: #358b5b;
+  --color-info: #bb7049;
+
+  /*
+   * Soft status tints — pair each with its solid status color as the
+   * foreground text. This is what drives the pill badges shown in the
+   * component library (In Progress / Todo / Done / High Priority).
+   */
+  --color-success-soft: #d9efe1;
+  --color-error-soft: #f7dcd9;
+  --color-warning-soft: #f5e2c2;
+  --color-muted-soft: #e6e0d7;
+
+  /* Decorative accent for status dots / category chips (not a semantic status color) */
+  --color-accent-blue: #4a90d9;
+
+  /* Overlay */
+  --color-overlay: rgb(58 47 38 / 0.25);
+
+  /*
+   * Neumorphic lighting
+   *
+   * Dark shadow:
+   * slightly stronger than before so the 3D shape is visible.
+   *
+   * Light shadow:
+   * reduced from .78 so the upper edge does not look white.
+   */
+  --neu-shadow-dark: rgb(111 94 76 / 0.24);
+  --neu-shadow-light: rgb(255 255 255 / 0.62);
+
+  /*
+   * Kept intentionally subtle.
+   * Elevation shadows below do not depend on this.
+   */
+  --ambient-glow: rgb(220 194 165 / 0.10);
+
+  /* Decorative tracks */
+  --neu-track: #ddd2c1;
+
+  /*
+   * Small raised elements
+   */
+  --shadow-elevation-1:
+    2px 2px 6px var(--neu-shadow-dark),
+    -2px -2px 6px var(--neu-shadow-light);
+
+  /*
+   * Normal raised elements
+   */
+  --shadow-elevation-2:
+    5px 5px 12px var(--neu-shadow-dark),
+    -4px -4px 10px var(--neu-shadow-light);
+
+  /*
+   * Cards / major panels
+   */
+  --shadow-elevation-3:
+    8px 8px 18px var(--neu-shadow-dark),
+    -6px -6px 16px var(--neu-shadow-light);
+
+  /*
+   * Large / prominent surfaces
+   */
+  --shadow-elevation-4:
+    11px 11px 25px rgb(100 82 64 / 0.26),
+    -8px -8px 21px var(--neu-shadow-light);
+
+  /*
+   * Recessed / pressed controls
+   */
+  --shadow-inset:
+    inset 3px 3px 7px rgb(111 94 76 / 0.16),
+    inset -3px -3px 7px rgb(255 255 255 / 0.55);
+
+  /*
+   * Orange focus treatment
+   */
+  --focus-ring:
+    0 0 0 2px rgb(232 137 45 / 0.30),
+    0 0 14px rgb(232 137 45 / 0.13);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  /* Nord: Polar Night, Snow Storm, Frost, and Aurora. */
-  --color-background: #2E3440;
-  --color-surface: #3B4252;
-  --color-foreground: #ECEFF4;
-  --color-muted-foreground: #D8DEE9;
-  --color-border: #4C566A;
-  --color-primary: #88C0D0;
-  --color-primary-foreground: #2E3440;
-  --color-error: #BF616A;
-  --color-warning: #EBCB8B;
-  --color-success: #A3BE8C;
-  --color-info: #B48EAD;
-  --auth-page-glow-opacity: 28%;
-  --auth-page-secondary-glow-opacity: 16%;
-  --auth-card-shadow: 0 20px 52px color-mix(in srgb, #2E3440 58%, transparent);
+
+  /* Base surfaces */
+  --color-background: #25282b;
+  --color-surface: #2c3034;
+  --color-surface-raised: #30353a;
+  --color-surface-secondary: #222629;
+  --color-surface-input: #292d31;
+
+  /* Text */
+  --color-foreground: #eee9e2;
+  --color-muted-foreground: #aaa49c;
+
+  /* Borders */
+  --color-border: #3a3e42;
+
+  /* Accent */
+  --color-primary: #e9943a;
+  --color-primary-hover: #f2a452;
+  --color-primary-soft: #67421f;
+  --color-primary-foreground: #21150a;
+
+  /* Status */
+  --color-error: #df7168;
+  --color-warning: #d6a04a;
+  --color-success: #5bbd7d;
+  --color-info: #d08b62;
+
+  /* Soft status tints for badges on dark surfaces */
+  --color-success-soft: #234a34;
+  --color-error-soft: #4a2b27;
+  --color-warning-soft: #4a3820;
+  --color-muted-soft: #33383d;
+
+  /* Decorative accent for status dots / category chips */
+  --color-accent-blue: #6ea8dd;
+
+  /* Overlay */
+  --color-overlay: rgb(8 9 10 / 0.52);
+
+  /*
+   * Neumorphic lighting
+   *
+   * Dark lower-right shadow gives the component depth.
+   * Cool gray upper-left highlight creates the raised edge.
+   *
+   * Kept deliberately subtle so the UI looks like
+   * a physical surface rather than glowing.
+   */
+  --neu-shadow-dark: rgb(8 10 12 / 0.58);
+  --neu-shadow-light: rgb(100 108 112 / 0.14);
+
+  /* SVG / decorative track */
+  --neu-track: #202428;
+
+  /*
+   * Very subtle ambient light.
+   * This is only used where an actual glow is desired.
+   */
+  --ambient-glow: rgb(190 174 153 / 0.045);
+
+  /*
+   * Raised elements
+   */
+  --shadow-elevation-1:
+    3px 3px 8px var(--neu-shadow-dark),
+    -3px -3px 8px var(--neu-shadow-light);
+
+  --shadow-elevation-2:
+    5px 5px 14px var(--neu-shadow-dark),
+    -5px -5px 12px var(--neu-shadow-light);
+
+  /*
+   * Cards / major panels
+   */
+  --shadow-elevation-3:
+    8px 8px 20px var(--neu-shadow-dark),
+    -8px -8px 18px var(--neu-shadow-light);
+
+  /*
+   * Large surfaces
+   */
+  --shadow-elevation-4:
+    12px 12px 28px rgb(6 8 10 / 0.62),
+    -12px -12px 24px var(--neu-shadow-light);
+
+  /*
+   * Recessed controls
+   */
+  --shadow-inset:
+    inset 3px 3px 8px rgb(7 9 11 / 0.46),
+    inset -3px -3px 8px rgb(105 113 118 / 0.10);
+
+  /*
+   * Focus
+   */
+  --focus-ring:
+    0 0 0 2px rgb(233 148 58 / 0.32),
+    0 0 14px rgb(233 148 58 / 0.12);
 }
 
 @theme inline {
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface);
+  --color-surface-secondary: var(--color-surface-secondary);
+  --color-surface-input: var(--color-surface-input);
   --color-foreground: var(--color-foreground);
   --color-muted-foreground: var(--color-muted-foreground);
   --color-border: var(--color-border);
   --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-soft: var(--color-primary-soft);
   --color-primary-foreground: var(--color-primary-foreground);
-  --color-accent: var(--color-primary);
   --color-error: var(--color-error);
   --color-warning: var(--color-warning);
   --color-success: var(--color-success);
   --color-info: var(--color-info);
-  /* Compatibility aliases for existing component utilities. */
+  --color-success-soft: var(--color-success-soft);
+  --color-error-soft: var(--color-error-soft);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-muted-soft: var(--color-muted-soft);
+  --color-accent-blue: var(--color-accent-blue);
+  --color-overlay: var(--color-overlay);
+  --color-accent: var(--color-primary);
   --color-app: var(--color-background);
   --color-elevated: var(--color-surface);
-  --color-hover: var(--color-surface);
+  --color-hover: var(--color-surface-secondary);
   --color-text: var(--color-foreground);
   --color-secondary: var(--color-muted-foreground);
   --color-muted: var(--color-muted-foreground);
@@ -66,40 +259,437 @@
 }
 
 @layer base {
-  *, ::before, ::after { border-color: var(--color-border); }
 
-  html, body, #root { min-height: 100%; }
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
-    transition: background-color 125ms ease, color 125ms ease;
+    transition: background-color .4s ease, color .4s ease;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body { transition: none; }
 }
 
 @layer components {
   .auth-page-shell {
-    background:
-      radial-gradient(circle at 68% 48%, color-mix(in srgb, var(--color-primary) var(--auth-page-glow-opacity), transparent), transparent 50%),
-      radial-gradient(circle at 12% 82%, color-mix(in srgb, var(--color-info) var(--auth-page-secondary-glow-opacity), transparent), transparent 45%),
-      var(--color-background);
+    background: var(--color-background);
   }
 
-  .auth-brand-panel { background: color-mix(in srgb, var(--color-surface) 84%, transparent); }
+  .neu-raised {
+    box-shadow: var(--shadow-elevation-2);
+  }
+
+  .neu-raised-sm {
+    box-shadow: var(--shadow-elevation-1);
+  }
+
+  .neu-raised-lg {
+    box-shadow: var(--shadow-elevation-3);
+  }
+
+  .neu-inset {
+    box-shadow: var(--shadow-inset);
+  }
 
   .auth-form-card {
-    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+    background: var(--color-surface);
     border: 1px solid color-mix(in srgb, var(--color-border) 72%, transparent);
-    box-shadow: var(--auth-card-shadow);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-elevation-3);
   }
 
   .auth-form-card input {
     background: var(--color-background);
-    border-color: var(--color-border);
+    border-color: transparent;
+    box-shadow: var(--shadow-inset);
+  }
+
+  .auth-form-card .bg-app {
+    background: var(--color-surface-input);
+    box-shadow: var(--shadow-inset);
+  }
+
+  .auth-illustration {
+    color: var(--color-muted-foreground);
+  }
+
+  .auth-console {
+    fill: var(--color-surface);
+    filter: drop-shadow(-7px -7px 11px var(--neu-shadow-light)) drop-shadow(7px 7px 11px var(--neu-shadow-dark));
+  }
+
+  .auth-console-sm {
+    fill: var(--color-surface);
+    filter: drop-shadow(-4px -4px 6px var(--neu-shadow-light)) drop-shadow(4px 4px 6px var(--neu-shadow-dark));
+  }
+
+  .auth-track {
+    fill: var(--neu-track);
+  }
+
+  @keyframes auth-core-breathe {
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+
+    50% {
+      transform: translateY(-10px) rotate(.3deg);
+    }
+  }
+
+  @keyframes auth-float-left {
+
+    0%,
+    100% {
+      transform: translate(0);
+    }
+
+    50% {
+      transform: translate(-4px, -8px);
+    }
+  }
+
+  @keyframes auth-float-right {
+
+    0%,
+    100% {
+      transform: translate(0);
+    }
+
+    50% {
+      transform: translate(3px, 6px);
+    }
+  }
+
+  @keyframes auth-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes auth-particle {
+
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: .35;
+    }
+
+    50% {
+      transform: translateY(-16px) scale(1.2);
+      opacity: .95;
+    }
+  }
+
+  .auth-core {
+    animation: auth-core-breathe 8s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .auth-badge-left {
+    animation: auth-float-left 6s ease-in-out infinite;
+  }
+
+  .auth-badge-right {
+    animation: auth-float-right 7s ease-in-out infinite;
+  }
+
+  .auth-spinner {
+    animation: auth-spin 24s linear infinite;
+    transform-origin: center;
+  }
+
+  .auth-particle {
+    animation: auth-particle 5s ease-in-out infinite;
+  }
+
+  .auth-particle-delay {
+    animation-delay: 1.2s;
+    animation-duration: 6.5s;
+  }
+}
+
+/*
+ * ==============================================================
+ * Dashboard component library — matches the "BUTTONS / INPUTS /
+ * SELECT / TOGGLE / BADGES / CARDS" showcase in the reference mock.
+ * Everything here composes the tokens above; nothing new is invented.
+ * ==============================================================
+ */
+@layer components {
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-weight: 600;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: .625rem 1.25rem;
+    border-radius: .75rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color .2s ease, box-shadow .2s ease, color .2s ease, transform .1s ease;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: .45;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    box-shadow: var(--shadow-elevation-2);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+  }
+
+  .btn-primary:active {
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-inset);
+    transform: translateY(1px);
+  }
+
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-foreground);
+    box-shadow: var(--shadow-elevation-1);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-surface-raised);
+  }
+
+  .btn-secondary:active {
+    box-shadow: var(--shadow-inset);
+    transform: translateY(1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-foreground);
+    box-shadow: none;
+  }
+
+  .btn-ghost:hover {
+    background: var(--color-surface-secondary);
+  }
+
+  .btn-ghost:active {
+    background: var(--color-surface-secondary);
+    box-shadow: var(--shadow-inset);
+  }
+
+  /* ---------- Badges ---------- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+    padding: .25rem .625rem;
+    border-radius: 999px;
+  }
+
+  .badge-primary {
+    background: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+  }
+
+  .badge-success {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+
+  .badge-error {
+    background: var(--color-error-soft);
+    color: var(--color-error);
+  }
+
+  .badge-muted {
+    background: var(--color-muted-soft);
+    color: var(--color-muted-foreground);
+  }
+
+  /* ---------- Sidebar nav items & select/dropdown options ----------
+     Both use the same "soft primary" selected treatment seen on the
+     active "Overview" nav item and the highlighted "Option One" row. */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .625rem .875rem;
+    border-radius: .75rem;
+    color: var(--color-muted-foreground);
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  .nav-item:hover {
+    background: var(--color-surface-secondary);
+    color: var(--color-foreground);
+  }
+
+  .nav-item-active,
+  .option-selected {
+    background: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+    border-radius: .75rem;
+  }
+
+  /* ---------- Toggle switch ---------- */
+  .neu-toggle {
+    position: relative;
+    display: inline-block;
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--neu-track);
+    box-shadow: var(--shadow-inset);
+    cursor: pointer;
+    transition: background-color .2s ease;
+  }
+
+  .neu-toggle[data-checked='true'] {
+    background: var(--color-primary);
+  }
+
+  .neu-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: var(--color-primary-foreground);
+    box-shadow: var(--shadow-elevation-1);
+    transition: transform .2s ease;
+  }
+
+  .neu-toggle[data-checked='true'] .neu-toggle-knob {
+    transform: translateX(1.25rem);
+  }
+
+  /* ---------- Small colored icon chip used on dashboard stat cards ---------- */
+  .stat-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .stat-icon-success {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+
+  .stat-icon-info {
+    background: color-mix(in srgb, var(--color-accent-blue) 22%, var(--color-surface));
+    color: var(--color-accent-blue);
+  }
+
+  /* ---------- Avatar ---------- */
+  .avatar {
+    border-radius: 999px;
+    box-shadow: var(--shadow-elevation-1);
+  }
+}
+
+@layer components {
+
+  input:not([type='checkbox']):not([type='radio']),
+  textarea,
+  select {
+    border-color: transparent !important;
+    border-radius: .75rem !important;
+    background-color: var(--color-surface-input) !important;
+    box-shadow: var(--shadow-inset);
+  }
+
+  input:not([type='checkbox']):not([type='radio']):focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: var(--shadow-inset), var(--focus-ring);
+    outline: none;
+  }
+
+  .bg-app {
+    background-color: var(--color-surface-input);
+    box-shadow: var(--shadow-inset);
+  }
+
+  .dashboard-page button.bg-app:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface-input));
+  }
+
+  .execution-panel .bg-elevated {
+    box-shadow: var(--shadow-elevation-1);
+  }
+
+  .execution-console {
+    box-shadow: var(--shadow-inset);
+  }
+
+  [data-sonner-toaster] .app-toast {
+    border: 1px solid color-mix(in srgb, var(--color-border) 68%, transparent);
+    border-radius: 1rem;
+    background: var(--color-surface) !important;
+    color: var(--color-foreground) !important;
+    box-shadow: var(--shadow-elevation-3);
+  }
+
+  ::-webkit-scrollbar {
+    width: .7rem;
+    height: .7rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid var(--color-surface-secondary);
+    border-radius: 999px;
+    background: var(--color-muted-foreground);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  body {
+    transition: none;
+  }
+
+  .auth-core,
+  .auth-badge-left,
+  .auth-badge-right,
+  .auth-spinner,
+  .auth-particle {
+    animation: none;
   }
 }

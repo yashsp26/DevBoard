@@ -38,12 +38,12 @@ export function LabelFormDialog({
     register,
     reset,
   } = useForm<LabelValues>({
-    defaultValues: { color: "#3B82F6", name: "" },
+    defaultValues: { color: "#DD7228", name: "" },
     resolver: zodResolver(labelSchema),
   });
   useEffect(() => {
     reset({
-      color: label?.color ?? "#3B82F6",
+      color: label?.color ?? "#DD7228",
       name: label?.name ?? "",
     });
   }, [label, reset]);

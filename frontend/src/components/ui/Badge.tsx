@@ -11,7 +11,7 @@ type BadgeProps = {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  default: 'border border-border-subtle bg-elevated text-secondary',
+  default: 'border border-border/70 bg-[var(--color-surface-secondary)] text-secondary',
   primary: 'border border-primary/30 bg-primary/15 text-primary',
   success: 'border border-success/30 bg-success/15 text-success',
   danger: 'border border-danger/30 bg-danger/15 text-danger',
@@ -21,7 +21,7 @@ const variantClasses: Record<BadgeVariant, string> = {
 
 export function Badge({ 'aria-label': ariaLabel, children, className, variant = 'default' }: BadgeProps) {
   return (
-    <span aria-label={ariaLabel} className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
+    <span aria-label={ariaLabel} className={cn('neu-raised-sm inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
       {children}
     </span>
   )

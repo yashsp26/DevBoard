@@ -23,7 +23,7 @@ export function SnippetCard({
     dateStyle: "medium",
   }).format(new Date(snippet.updatedAt));
   return (
-    <Card className="flex min-h-64 flex-col p-5 transition-shadow hover:shadow-md">
+    <Card className="flex min-h-64 flex-col p-5 transition-[box-shadow,transform] hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevation-3)]">
       <header className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="truncate text-lg font-semibold text-text">

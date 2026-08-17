@@ -10,9 +10,9 @@ type EmptyStateProps = {
 
 export function EmptyState({ action, description, icon: Icon, title }: EmptyStateProps) {
   return (
-    <section className="grid place-items-center rounded-xl border border-dashed border-border-subtle bg-elevated px-6 py-16 text-center">
+    <section className="neu-raised grid place-items-center rounded-2xl border border-border/70 bg-elevated px-6 py-16 text-center">
       <div className="max-w-sm space-y-3">
-        <span className="mx-auto flex size-11 items-center justify-center rounded-xl bg-app text-muted">
+        <span className="neu-inset mx-auto flex size-11 items-center justify-center rounded-xl bg-[var(--color-surface-input)] text-primary">
           <Icon aria-hidden="true" className="size-5" />
         </span>
         <h2 className="text-base font-semibold text-text">{title}</h2>

@@ -14,11 +14,11 @@ type ButtonProps = HTMLMotionProps<"button"> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-accent-foreground shadow-sm shadow-primary/20 hover:bg-primary/90",
-  secondary: "bg-elevated text-text ring-1 ring-border hover:bg-hover",
-  ghost: "text-muted hover:bg-elevated hover:text-text",
+    "bg-primary text-accent-foreground shadow-[var(--shadow-elevation-1)] hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-[var(--shadow-elevation-2)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
+  secondary: "neu-raised bg-elevated text-text hover:-translate-y-0.5 hover:bg-hover hover:shadow-[var(--shadow-elevation-3)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
+  ghost: "text-muted hover:bg-primary/10 hover:text-text active:bg-primary/15",
   danger:
-    "bg-danger text-accent-foreground shadow-sm shadow-danger/20 hover:bg-danger/90",
+    "bg-danger text-white shadow-[var(--shadow-elevation-1)] hover:-translate-y-0.5 hover:bg-danger/90 hover:shadow-[var(--shadow-elevation-2)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
 };
 
 export function Button({
@@ -34,7 +34,7 @@ export function Button({
   return (
     <motion.button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium transition-[background-color,color,box-shadow,transform] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-45",
         size === "icon" ? "h-9 w-9 shrink-0 p-0" : "min-h-10 px-4",
         variantClasses[variant],
         className,

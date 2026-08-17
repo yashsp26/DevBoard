@@ -21,7 +21,7 @@ export function ActionIconButton({
     <Button
       {...props}
       className={cn(
-        "size-10 min-h-10 shrink-0 p-0 hover:bg-elevated",
+        "size-10 min-h-10 shrink-0 p-0",
         className,
       )}
       size="icon"
