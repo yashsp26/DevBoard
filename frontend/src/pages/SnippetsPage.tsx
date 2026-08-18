@@ -8,6 +8,7 @@ import { SnippetModal } from "../components/snippets/SnippetModal";
 import { EmptyState } from "../components/common/EmptyState";
 import { PageHeader } from "../components/common/PageHeader";
 import { Button } from "../components/ui/Button";
+import { Select } from "../components/ui/Select";
 import { languages } from "../features/snippets/languages";
 import { useDebouncedValue } from "../hooks/useDebouncedValue";
 import { useProjects } from "../services/useProjects";
@@ -109,67 +110,11 @@ export function SnippetsPage() {
           />
         </label>
         <div className="flex flex-wrap gap-3">
-          <select
-            aria-label="Filter by project"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) =>
-              update({ projectId: event.target.value || undefined })
-            }
-            value={projectId ?? ""}
-          >
-            <option value="">All Projects</option>
-            {projects?.projects.map((project) => (
-              <option key={project.id} value={project.id}>
-                {project.name}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label="Filter by language"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) =>
-              update({ language: event.target.value || undefined })
-            }
-            value={language ?? ""}
-          >
-            <option value="">All languages</option>
-            {languages.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label="Filter by favorite status"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) =>
-              update({ favorite: event.target.value || undefined })
-            }
-            value={favorite ? "true" : ""}
-          >
-            <option value="">All Snippets</option>
-            <option value="true">Favorites</option>
-          </select>
-          <select
-            aria-label="Sort snippets"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => update({ sort: event.target.value })}
-            value={sort}
-          >
-            <option value="updatedAt">Last updated</option>
-            <option value="createdAt">Date created</option>
-            <option value="title">Title</option>
-            <option value="language">Language</option>
-          </select>
-          <select
-            aria-label="Sort order"
-            className="min-h-10 rounded-lg border border-border bg-app px-3 text-sm text-text outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => update({ order: event.target.value })}
-            value={order}
-          >
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
+          <Select aria-label="Filter by project" onValueChange={(value) => update({ projectId: (value as string) || undefined })} options={[{ label: "All Projects", value: "" }, ...(projects?.projects.map((project) => ({ label: project.name, value: project.id })) ?? [])]} value={projectId ?? ""} />
+          <Select aria-label="Filter by language" onValueChange={(value) => update({ language: (value as string) || undefined })} options={[{ label: "All languages", value: "" }, ...languages.map((item) => ({ label: item, value: item }))]} value={language ?? ""} />
+          <Select aria-label="Filter by favorite status" onValueChange={(value) => update({ favorite: (value as string) || undefined })} options={[{ label: "All Snippets", value: "" }, { label: "Favorites", value: "true" }]} value={favorite ? "true" : ""} />
+          <Select aria-label="Sort snippets" onValueChange={(value) => update({ sort: value as string })} options={[{ label: "Last updated", value: "updatedAt" }, { label: "Date created", value: "createdAt" }, { label: "Title", value: "title" }, { label: "Language", value: "language" }]} value={sort} />
+          <Select aria-label="Sort order" onValueChange={(value) => update({ order: value as string })} options={[{ label: "Descending", value: "desc" }, { label: "Ascending", value: "asc" }]} value={order} />
         </div>
       </section>
       {isLoading ? (

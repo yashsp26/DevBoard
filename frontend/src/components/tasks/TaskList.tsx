@@ -14,6 +14,7 @@ import { getApiErrorMessage } from "../../utils/apiError";
 import { EmptyState } from "../common/EmptyState";
 import { ActionIconButton } from "../common/ActionIconButton";
 import { Button } from "../ui/Button";
+import { Select } from "../ui/Select";
 import { EmptyTasks } from "./EmptyTasks";
 import { LoadingTasks } from "./LoadingTasks";
 import { TaskRow } from "./TaskRow";
@@ -34,22 +35,7 @@ function TaskListItem({
     <TaskRow
       actions={
         <>
-          <select
-            aria-label={`Change status for ${task.title}`}
-            className="min-h-9 rounded-lg border border-border bg-app px-2 text-xs text-text"
-            disabled={updateStatus.isPending}
-            onChange={(event) =>
-              updateStatus.mutate(event.target.value as TaskStatus)
-            }
-            onClick={(event) => event.stopPropagation()}
-            value={task.status}
-          >
-            {Object.values(TaskStatus).map((status) => (
-              <option key={status} value={status}>
-                {status.replace("_", " ")}
-              </option>
-            ))}
-          </select>
+          <span onClick={(event) => event.stopPropagation()}><Select aria-label={`Change status for ${task.title}`} disabled={updateStatus.isPending} onValueChange={(value) => updateStatus.mutate(value as TaskStatus)} options={Object.values(TaskStatus).map((status) => ({ label: status.replace("_", " "), value: status }))} size="sm" value={task.status} /></span>
           <ActionIconButton
             aria-label={`Edit ${task.title}`}
             icon={Edit3}

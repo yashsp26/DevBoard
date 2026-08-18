@@ -14,11 +14,11 @@ type ButtonProps = HTMLMotionProps<"button"> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-accent-foreground shadow-[var(--shadow-elevation-1)] hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-[var(--shadow-elevation-2)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
+    "bg-primary text-accent-foreground shadow-[var(--shadow-elevation-2)] hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-[var(--shadow-elevation-3)] active:translate-y-0 active:bg-[var(--accent-orange-active)] active:shadow-[var(--shadow-inset)]",
   secondary: "neu-raised bg-elevated text-text hover:-translate-y-0.5 hover:bg-hover hover:shadow-[var(--shadow-elevation-3)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
-  ghost: "text-muted hover:bg-primary/10 hover:text-text active:bg-primary/15",
+  ghost: "neu-raised-sm bg-elevated text-muted hover:-translate-y-0.5 hover:bg-primary/10 hover:text-text active:translate-y-0 active:bg-primary/15 active:shadow-[var(--shadow-inset)]",
   danger:
-    "bg-danger text-white shadow-[var(--shadow-elevation-1)] hover:-translate-y-0.5 hover:bg-danger/90 hover:shadow-[var(--shadow-elevation-2)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
+    "bg-danger text-white shadow-[var(--shadow-elevation-2)] hover:-translate-y-0.5 hover:bg-danger/90 hover:shadow-[var(--shadow-elevation-3)] active:translate-y-0 active:shadow-[var(--shadow-inset)]",
 };
 
 export function Button({
