@@ -14,7 +14,7 @@ let isRefreshing = false
 let pendingRequests: PendingRequest[] = []
 
 export const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'API_URL/api',
   withCredentials: true,
 })
 
