@@ -26,10 +26,7 @@ export const createProject = async (userId, data) => {
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
-      throw new ApiError(
-        409,
-        "A project with this name already exists."
-      );
+      throw new ApiError(409, "A project with this name already exists.");
     }
 
     throw error;
@@ -112,17 +109,18 @@ export const getProjectById = async (userId, projectId) => {
     where: {
       id: projectId,
       ownerId: userId,
-    },include: {
-    _count: {
-      select: {
-        tasks: true,
-        labels: true,
-        notes: true,
-        snippets: true,
+    },
+    include: {
+      _count: {
+        select: {
+          tasks: true,
+          labels: true,
+          notes: true,
+          snippets: true,
+        },
       },
     },
-  },
-});
+  });
 
   if (!project) {
     throw new ApiError(404, "Project not found.");

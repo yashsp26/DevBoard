@@ -1,10 +1,6 @@
 import prisma from "../config/prisma.js";
 
-export const search = async ({
-  userId,
-  query,
-  type = "all",
-}) => {
+export const search = async ({ userId, query, type = "all" }) => {
   const searchTerm = query.trim();
 
   if (!searchTerm) {
@@ -32,10 +28,7 @@ export const search = async ({
       prisma.project.findMany({
         where: {
           ownerId: userId,
-          OR: [
-            { name: contains },
-            { description: contains },
-          ],
+          OR: [{ name: contains }, { description: contains }],
         },
         select: {
           id: true,
@@ -62,10 +55,7 @@ export const search = async ({
           project: {
             ownerId: userId,
           },
-          OR: [
-            { title: contains },
-            { description: contains },
-          ],
+          OR: [{ title: contains }, { description: contains }],
         },
         select: {
           id: true,
@@ -98,10 +88,7 @@ export const search = async ({
       prisma.note.findMany({
         where: {
           userId,
-          OR: [
-            { title: contains },
-            { content: contains },
-          ],
+          OR: [{ title: contains }, { content: contains }],
         },
         select: {
           id: true,
@@ -193,13 +180,7 @@ export const search = async ({
     queries.push(Promise.resolve([]));
   }
 
-  const [
-    projects,
-    tasks,
-    notes,
-    snippets,
-    labels,
-  ] = await Promise.all(queries);
+  const [projects, tasks, notes, snippets, labels] = await Promise.all(queries);
 
   const results = [
     ...projects.map((item) => ({

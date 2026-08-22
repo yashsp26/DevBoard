@@ -2,7 +2,8 @@ import prisma from "../config/prisma.js";
 
 import ApiError from "../utils/ApiError.js";
 
-const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+const hasOwn = (object, key) =>
+  Object.prototype.hasOwnProperty.call(object, key);
 
 const getProjectOwnership = async (projectId, userId) => {
   if (!projectId) return;
@@ -45,7 +46,10 @@ export const createSnippet = async (userId, data) => {
     });
   } catch (error) {
     if (error.code === "P2002") {
-      throw new ApiError(409, "Another file in this project already uses this path.");
+      throw new ApiError(
+        409,
+        "Another file in this project already uses this path.",
+      );
     }
 
     throw error;
@@ -180,10 +184,8 @@ export const updateSnippet = async (id, userId, data) => {
   if (
     nextProjectId &&
     !nextFilePath &&
-    (
-      (hasOwn(data, "projectId") && data.projectId !== snippet.projectId) ||
-      hasOwn(data, "filePath")
-    )
+    ((hasOwn(data, "projectId") && data.projectId !== snippet.projectId) ||
+      hasOwn(data, "filePath"))
   ) {
     throw new ApiError(400, "File path is required for project snippets.");
   }
@@ -209,7 +211,10 @@ export const updateSnippet = async (id, userId, data) => {
     });
   } catch (error) {
     if (error.code === "P2002") {
-      throw new ApiError(409, "Another file in this project already uses this path.");
+      throw new ApiError(
+        409,
+        "Another file in this project already uses this path.",
+      );
     }
 
     throw error;
