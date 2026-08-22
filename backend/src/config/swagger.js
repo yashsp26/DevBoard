@@ -11,7 +11,7 @@ const options = {
 
     servers: [
       {
-        url: "http://localhost:5000/api",
+        url: "API_URL/api",
         description: "Development Server",
       },
     ],
