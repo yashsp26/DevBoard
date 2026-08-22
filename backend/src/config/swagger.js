@@ -11,8 +11,10 @@ const options = {
 
     servers: [
       {
-        url: "API_URL/api",
-        description: "Development Server",
+        url: `${process.env.VITE_API_URL || "http://localhost:5000"}/api`,
+        description: process.env.VITE_API_URL
+          ? "Production Server"
+          : "Development Server",
       },
     ],
 

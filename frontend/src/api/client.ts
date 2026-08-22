@@ -11,10 +11,12 @@ type PendingRequest = {
 }
 
 let isRefreshing = false
-let pendingRequests: PendingRequest[] = []
+let pendingRequests: PendingRequest[] = [] 
+
+console.log("VITE_API_URL =", import.meta.env.VITE_API_URL)
 
 export const apiClient = axios.create({
-  baseURL: 'API_URL/api',
+  baseURL: `${import.meta.env.VITE_API_URL}/api`,
   withCredentials: true,
 })
 
@@ -84,7 +86,7 @@ apiClient.interceptors.response.use(
 
     if (
       !originalRequest ||
-      error.response?.status !== 401 ||
+      error.response.status !== 401 ||
       originalRequest._retry ||
       isRefreshOrLoginRequest(originalRequest.url)
     ) {
@@ -105,14 +107,19 @@ apiClient.interceptors.response.use(
     isRefreshing = true
 
     try {
-      const { data } = await apiClient.post<{ data: { accessToken: string } }>('/v1/auth/refresh')
+      const { data } = await apiClient.post<{
+        data: { accessToken: string }
+      }>('/v1/auth/refresh')
+
       useAuthStore.getState().setAccessToken(data.data.accessToken)
       flushPendingRequests()
+
       return apiClient(originalRequest)
     } catch (refreshError) {
       flushPendingRequests(refreshError)
       handleRefreshFailure()
       redirectToLogin()
+
       return Promise.reject(error)
     } finally {
       isRefreshing = false
