@@ -86,7 +86,7 @@ export function SnippetsPage() {
   const toggle = useToggleSnippetFavorite();
   const filtered = Boolean(search || projectId || language || favorite);
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
+    <main className="mx-auto min-w-0 w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
       <PageHeader
         actions={
           <Button onClick={() => setCreating(true)}>
@@ -120,7 +120,7 @@ export function SnippetsPage() {
       {isLoading ? (
         <div
           aria-label="Loading snippets"
-          className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+          className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2 xl:grid-cols-3"
           role="status"
         >
           {Array.from({ length: 6 }, (_, i) => (
@@ -143,7 +143,7 @@ export function SnippetsPage() {
         />
       ) : data?.snippets.length ? (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {data.snippets.map((snippet) => (
               <SnippetCard
                 isTogglingFavorite={

@@ -21,7 +21,7 @@ const variantClasses: Record<BadgeVariant, string> = {
 
 export function Badge({ 'aria-label': ariaLabel, children, className, variant = 'default' }: BadgeProps) {
   return (
-    <span aria-label={ariaLabel} className={cn('neu-raised-sm inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
+    <span aria-label={ariaLabel} className={cn('neu-raised-sm inline-flex min-w-0 max-w-full items-center overflow-hidden rounded-full px-2.5 py-1 text-xs font-medium', variantClasses[variant], className)}>
       {children}
     </span>
   )

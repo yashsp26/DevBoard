@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Outlet, useLocation } from "react-router";
 import { Navbar } from "../components/layout/Navbar";
+import { MobileNavigation } from "../components/layout/MobileNavigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { UserMenu } from "../components/layout/UserMenu";
 import { ThemeToggle } from "../components/layout/ThemeToggle";
@@ -31,7 +32,7 @@ export function DashboardLayout() {
   const { pathname } = useLocation();
 
   return (
-    <div className="min-h-screen bg-background lg:flex">
+    <div className="min-h-screen min-w-0 w-full overflow-x-clip bg-background lg:flex">
       <Sidebar items={navigationItems} />
       <div className="min-w-0 flex-1 lg:p-4">
         <Navbar
@@ -41,6 +42,7 @@ export function DashboardLayout() {
               <UserMenu />
             </>
           }
+          mobileNavigation={<MobileNavigation items={navigationItems} />}
           title={
             pathname.startsWith("/projects/")
               ? "Project details"

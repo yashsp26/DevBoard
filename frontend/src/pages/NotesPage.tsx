@@ -77,7 +77,7 @@ export function NotesPage() {
     sort: "name",
   });
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
+    <main className="mx-auto min-w-0 w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
       <PageHeader
         actions={
           <Button onClick={() => setCreating(true)}>
@@ -121,7 +121,7 @@ export function NotesPage() {
         />
       ) : data?.notes.length ? (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {data.notes.map((note) => (
               <NoteCard
                 key={note.id}

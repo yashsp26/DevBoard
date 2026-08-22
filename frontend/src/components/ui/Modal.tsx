@@ -171,7 +171,7 @@ export function Modal({
 
         {/* Footer */}
         {footer && (
-          <footer className="flex shrink-0 items-center justify-between border-t border-border-subtle px-5 py-3">
+          <footer className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-border-subtle px-5 py-3">
             {footer}
           </footer>
         )}

@@ -62,13 +62,13 @@ export function ProjectCard({
           : "hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevation-3)]",
       )}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex min-w-0 items-start justify-between gap-4">
         <span
           aria-label="Project color"
           className="size-10 shrink-0 rounded-xl border border-border-subtle shadow-sm"
           style={{ backgroundColor: project.color ?? "var(--color-primary)" }}
         />
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Badge variant={isArchived ? "warning" : "success"}>
             {isArchived ? "Archived" : "Active"}
           </Badge>
@@ -116,8 +116,8 @@ export function ProjectCard({
         </div>
       </dl>
       <footer className="mt-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="whitespace-nowrap text-xs text-muted">
+        <div className="flex min-w-0 items-center justify-between gap-3">
+          <p className="min-w-0 truncate text-xs text-muted">
             Updated {updatedAt}
           </p>
 

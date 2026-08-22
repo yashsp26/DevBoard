@@ -23,7 +23,7 @@ export function TaskCard({ onClick, task }: TaskCardProps) {
     <Card
       aria-label={isInteractive ? `Open task ${task.title}` : undefined}
       className={cn(
-        "flex min-h-64 flex-col p-5",
+        "flex min-h-64 min-w-0 flex-col p-5",
         isInteractive &&
           "cursor-pointer transition-[box-shadow,transform] hover:-translate-y-0.5 hover:shadow-(--shadow-elevation-3) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
       )}
@@ -46,7 +46,7 @@ export function TaskCard({ onClick, task }: TaskCardProps) {
             {task.assignee?.name ?? "Unassigned"}
           </p>
         </div>
-        <TaskPriorityBadge priority={task.priority} />
+        <span className="shrink-0"><TaskPriorityBadge priority={task.priority} /></span>
       </header>
       <div className="mt-5 flex-1">
         <p className="line-clamp-3 min-h-15 text-sm leading-6 text-muted">

@@ -87,7 +87,7 @@ export function SnippetForm({
 
   return (
     <form
-      className="grid h-full min-h-0 grid-cols-[minmax(0,1.65fr)_minmax(360px,1fr)] overflow-hidden"
+      className="grid min-h-0 grid-cols-1 overflow-y-auto lg:h-full lg:grid-cols-[minmax(0,1.65fr)_minmax(360px,1fr)] lg:overflow-hidden"
       id={formId}
       noValidate
       onSubmit={handleSubmit((values) => {
@@ -99,10 +99,10 @@ export function SnippetForm({
       })}
     >
       {/* LEFT SIDE */}
-      <div className="flex min-h-0 min-w-0 flex-col border-r border-border-subtle px-5 py-4">
+      <div className="flex min-h-0 min-w-0 flex-col border-b border-border-subtle px-5 py-4 lg:border-b-0 lg:border-r">
         {/* Top fields */}
         <div className="shrink-0 space-y-4">
-          <div className="grid grid-cols-[minmax(0,1.7fr)_minmax(170px,0.8fr)_minmax(170px,0.8fr)] gap-4">
+          <div className="grid gap-4 sm:grid-cols-[minmax(0,1.7fr)_minmax(170px,0.8fr)_minmax(170px,0.8fr)]">
             <Input
               autoFocus
               disabled={isSubmitting}
@@ -189,7 +189,7 @@ export function SnippetForm({
         </div>
 
         {/* Editor */}
-        <div className="mt-4 min-h-0 flex-1">
+        <div className="mt-4 min-h-72 flex-1 lg:min-h-0">
           <Controller
             control={control}
             name="code"
