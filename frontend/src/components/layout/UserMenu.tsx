@@ -31,7 +31,7 @@ export function UserMenu() {
             fallbackSrc={profile?.profile?.avatar}
             size="sm"
           />
-          <span className="max-w-32 truncate">{displayName}</span>
+          <span className="hidden max-w-32 truncate sm:inline">{displayName}</span>
         </>
       }
     />

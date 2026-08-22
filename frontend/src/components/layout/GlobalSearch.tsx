@@ -8,7 +8,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useDebouncedValue } from "../../hooks/useDebouncedValue";
@@ -58,6 +58,8 @@ export function GlobalSearch() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const mobileTriggerRef = useRef<HTMLButtonElement>(null);
   const trimmedQuery = query.trim();
   const debouncedQuery = useDebouncedValue(trimmedQuery);
   const { data, isError, isFetching } = useSearch(debouncedQuery, type);
@@ -76,10 +78,22 @@ export function GlobalSearch() {
     if (isError) toast.error("Search is unavailable. Please try again.");
   }, [isError]);
 
-  const close = () => {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const closeOnOutsidePress = (event: PointerEvent) => {
+      if (!searchRef.current?.contains(event.target as Node)) close();
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    return () => document.removeEventListener("pointerdown", closeOnOutsidePress);
+  }, [isOpen]);
+
+  const close = (restoreMobileFocus = false) => {
     setIsOpen(false);
     setIsMobileOpen(false);
     setHighlightedIndex(-1);
+    if (restoreMobileFocus) requestAnimationFrame(() => mobileTriggerRef.current?.focus());
   };
 
   const openResult = (result: SearchResult) => {
@@ -102,11 +116,15 @@ export function GlobalSearch() {
       />
       <input
         aria-label="Search DevLupo"
-        className="neu-inset min-h-10 w-full rounded-xl border border-transparent bg-surface-input py-2 pl-9 pr-9 text-sm text-text outline-none transition placeholder:text-muted/65 focus:border-primary focus:ring-2 focus:ring-primary/25"
+        className="neu-inset min-h-10 w-full appearance-none rounded-xl border border-transparent bg-surface-input py-2 pl-9 pr-11 text-sm text-text outline-none transition placeholder:text-muted/65 focus:border-primary focus:ring-2 focus:ring-primary/25 [&::-webkit-search-cancel-button]:appearance-none"
         onChange={(event) => setQuery(event.target.value)}
         onFocus={() => setIsOpen(true)}
         onKeyDown={(event) => {
-          if (event.key === "Escape") close();
+          if (event.key === "Escape") {
+            event.preventDefault();
+            event.currentTarget.blur();
+            close(mobile);
+          }
           if (!flatResults.length) return;
           if (event.key === "ArrowDown") {
             event.preventDefault();
@@ -127,20 +145,23 @@ export function GlobalSearch() {
         type="search"
         value={query}
       />
-      {query && (
-        <Button
-          aria-label="Clear search"
-          className="absolute right-1 top-1/2 -translate-y-1/2"
-          onClick={() => setQuery("")}
-          size="icon"
-          variant="ghost"
+      {(query || mobile) && (
+        <button
+          aria-label="Close search"
+          className="neu-raised absolute right-1 top-1/2 flex size-10 shrink-0 -translate-y-1/2 items-center justify-center rounded-xl bg-elevated text-muted transition-[background-color,color,box-shadow] hover:bg-primary/10 hover:text-text active:shadow-[var(--shadow-inset)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          onClick={() => {
+            setQuery("");
+            close(mobile);
+          }}
+          onMouseDown={(event) => event.preventDefault()}
+          type="button"
         >
-          <X aria-hidden="true" className="size-4" />
-        </Button>
+          <X aria-hidden="true" className="size-4 shrink-0" />
+        </button>
       )}
       {showResults && (
         <div
-          className={`neu-raised-lg absolute z-50 mt-2 overflow-hidden rounded-2xl border border-border/70 bg-elevated ${mobile ? "right-0 w-[min(22rem,calc(100vw-2rem))]" : "left-0 w-96"}`}
+          className={`neu-raised-lg absolute z-50 mt-2 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border/70 bg-elevated ${mobile ? "right-0 w-[min(22rem,calc(100vw-2rem))]" : "right-0 w-96"}`}
         >
           <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2">
             <Select
@@ -247,7 +268,7 @@ export function GlobalSearch() {
   );
 
   return (
-    <div className="relative">
+    <div className="relative" ref={searchRef}>
       <div className="hidden w-72 md:block">{searchField()}</div>
       <div className="md:hidden">
         <Button
@@ -258,12 +279,13 @@ export function GlobalSearch() {
             setIsOpen(next);
           }}
           size="icon"
+          ref={mobileTriggerRef}
           variant="ghost"
         >
           <Search aria-hidden="true" className="size-4" />
         </Button>
         {isMobileOpen && (
-          <div className="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-2rem))]">
+          <div className="fixed inset-x-4 top-[5.5rem] z-50">
             {searchField(true)}
           </div>
         )}

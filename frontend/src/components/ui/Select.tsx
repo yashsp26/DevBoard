@@ -2,7 +2,6 @@ import { Check, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   type KeyboardEvent,
-  type ReactNode,
   useEffect,
   useId,
   useMemo,
@@ -134,7 +133,7 @@ export function Select({
   };
 
   return (
-    <div className="relative min-w-0" ref={containerRef}>
+    <div className="relative min-w-0 max-w-full" ref={containerRef}>
       {name && <input name={name} type="hidden" value={Array.isArray(value) ? value.join(",") : value} />}
       <button
         aria-activedescendant={isOpen ? `${listboxId}-${highlightedIndex}` : undefined}

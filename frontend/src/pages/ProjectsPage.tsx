@@ -98,7 +98,7 @@ export function ProjectsPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
+    <main className="mx-auto min-w-0 w-full max-w-6xl space-y-8 px-6 py-10 sm:px-8">
       <ProjectHeader onCreate={openCreateDialog} />
       <section aria-label="Project controls" className="space-y-3">
         <ProjectSearch onChange={setSearchValue} value={searchValue} />
