@@ -73,9 +73,9 @@ export const registerUser = async ({ name, email, password }) => {
   });
 
   try {
-   await sendWelcomeEmail(user);
+    await sendWelcomeEmail(user);
   } catch (error) {
-  console.error("Failed to send welcome email:", error);
+    console.error("Failed to send welcome email:", error);
   }
 
   return {
@@ -166,12 +166,12 @@ export const refreshUserToken = async (refreshToken) => {
   }
 
   await prisma.refreshToken.deleteMany({
-  where: {
-    expiresAt: {
-      lt: new Date(),
+    where: {
+      expiresAt: {
+        lt: new Date(),
+      },
     },
-  },
-});
+  });
 
   const accessToken = generateAccessToken({
     id: storedToken.user.id,
@@ -266,7 +266,7 @@ export const forgotPassword = async (email) => {
       },
     });
   });
-  console.log("Sending reset email to", user.email, token)
+  console.log("Sending reset email to", user.email, token);
   try {
     await sendForgotPasswordEmail(user, token);
   } catch (error) {
@@ -303,13 +303,13 @@ export const resetPassword = async ({ token, password }) => {
   // Check if the new password matches the current password
   const isSamePassword = await comparePassword(
     password,
-    resetToken.user.password
+    resetToken.user.password,
   );
 
   if (isSamePassword) {
     throw new ApiError(
       400,
-      "New password must be different from your current password."
+      "New password must be different from your current password.",
     );
   }
 

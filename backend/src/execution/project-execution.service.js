@@ -25,14 +25,19 @@ function isSafeProjectPath(filePath) {
     filePath.startsWith("\\") ||
     /^[a-zA-Z]:/.test(filePath) ||
     filePath.includes("\\") ||
-    filePath.split("/").some((segment) => !segment || segment === "." || segment === "..")
+    filePath
+      .split("/")
+      .some((segment) => !segment || segment === "." || segment === "..")
   );
 }
 
 function selectEntryPoint(files, suppliedEntryPoint) {
   if (suppliedEntryPoint !== undefined) {
     if (!isSafeProjectPath(suppliedEntryPoint)) {
-      throw new ApiError(400, "Entry point must be a safe relative project path.");
+      throw new ApiError(
+        400,
+        "Entry point must be a safe relative project path.",
+      );
     }
 
     if (!files.some((file) => file.path === suppliedEntryPoint)) {
@@ -47,7 +52,10 @@ function selectEntryPoint(files, suppliedEntryPoint) {
   );
 
   if (!defaultEntryPoint) {
-    throw new ApiError(400, "No default entry point was found. Provide an entryPoint.");
+    throw new ApiError(
+      400,
+      "No default entry point was found. Provide an entryPoint.",
+    );
   }
 
   return defaultEntryPoint;
@@ -75,7 +83,10 @@ export async function executeProject(userId, projectId, options) {
   const paths = new Set();
   for (const snippet of snippets) {
     if (!isSafeProjectPath(snippet.filePath)) {
-      throw new ApiError(400, "Every project file must have a valid relative file path.");
+      throw new ApiError(
+        400,
+        "Every project file must have a valid relative file path.",
+      );
     }
 
     if (paths.has(snippet.filePath)) {
@@ -84,7 +95,10 @@ export async function executeProject(userId, projectId, options) {
     paths.add(snippet.filePath);
 
     if (!SUPPORTED_LANGUAGES.has(snippet.language)) {
-      throw new ApiError(400, "Project execution supports only JavaScript or TypeScript files.");
+      throw new ApiError(
+        400,
+        "Project execution supports only JavaScript or TypeScript files.",
+      );
     }
   }
 

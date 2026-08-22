@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import prisma from "../Config/prisma.js";
+import prisma from "../config/prisma.js";
 
 import ApiError from "../utils/ApiError.js";
 
